@@ -58,8 +58,8 @@ namespace MotionDatabase
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = true
-                }
-            })
+                };
+            });
         }
 
         // Used to configure a development database instance form scratch

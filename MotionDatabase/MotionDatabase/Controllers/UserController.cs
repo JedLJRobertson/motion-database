@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MotionDatabase.Dto;
+using MotionDatabase.Helpers;
 using MotionDatabase.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MotionDatabase.Controllers
@@ -16,14 +20,17 @@ namespace MotionDatabase.Controllers
     {
         private readonly MotionsContext _context;
         private readonly PasswordHasher<User> _hasher;
+        private readonly AppSettings _appSettings;
 
-        public UserController(MotionsContext context)
+        public UserController(MotionsContext context, AppSettings appSettings, PasswordHasher<User> hasher)
         {
             _context = context;
+            _appSettings = appSettings;
+            _hasher = hasher;
         }
 
         [HttpPost]
-        public ActionResult<AuthTokenDto> Login(LoginDto login)
+        public ActionResult<SecurityToken> Login(LoginDto login)
         {
             var user = _context.Users.First(u => u.Username.ToLower() == login.Username.ToLower());
 
@@ -39,7 +46,7 @@ namespace MotionDatabase.Controllers
 
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(_appSettings.JWTSecret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -50,9 +57,8 @@ namespace MotionDatabase.Controllers
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
 
-            return new AuthTokenDto(token);
+            return token;
         }
 
         protected bool AddUser(string username, string email, string password)
