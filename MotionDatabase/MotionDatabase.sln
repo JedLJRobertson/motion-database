@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionDatabase", "MotionDatabase\MotionDatabase.csproj", "{1B8D25D3-F267-45AE-98AC-E8E56846D9A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionDatabaseBackend", "MotionDatabase\MotionDatabaseBackend.csproj", "{1B8D25D3-F267-45AE-98AC-E8E56846D9A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
