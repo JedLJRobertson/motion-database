@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MotionDatabase.Models;
 
 namespace MotionDatabase
 {
@@ -25,7 +27,16 @@ namespace MotionDatabase
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MotionsContext>(options =>
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddControllers();
+        }
+
+        // Used to configure a development database instance form scratch
+        public void ConfigureDevDatabase(MotionsContext db)
+        {
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +45,13 @@ namespace MotionDatabase
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                using var serviceScope = app.ApplicationServices.CreateScope();
+
+                var db = serviceScope.ServiceProvider.GetService<MotionsContext>();
+                db.Database.EnsureDeleted();
+                db.Database.EnsureCreated();
+                ConfigureDevDatabase(db);
             }
 
             app.UseHttpsRedirection();

@@ -1,10 +1,11 @@
-﻿namespace MotionDatabase.Models
+﻿using System.Collections.Generic;
+
+namespace MotionDatabase.Models
 {
     public enum TagStatus { Approved, WaitingApproval, Denied }
     public class MotionTag
     {
-        public int TagId { get; set; }
+        public int Id { get; set; }
         public TagStatus Status { get; set; }
-        public IList<MotionTagRelated> RelatedTags { get; set; }
     }
 }

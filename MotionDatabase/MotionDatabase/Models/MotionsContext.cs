@@ -21,8 +21,24 @@ namespace MotionDatabase.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<MotionTagAssignment>().HasKey(mta => new { mta.MotionTagId, mta.MotionId });
+            modelBuilder.Entity<MotionTagAssignment>()
+                .HasOne<Motion>(mta => mta.Motion)
+                .WithMany(m => m.Tags)
+                .HasForeignKey(mta => mta.MotionId);
+
+            modelBuilder.Entity<MotionTagAssignment>()
+                .HasOne<MotionTag>(mta => mta.MotionTag);
+
             modelBuilder.Entity<MotionDebateFormat>().HasKey(mdf => new { mdf.DebateFormatId, mdf.MotionId });
-            modelBuilder.Entity<MotionTagRelated>().HasKey(mtr => new { mtr.TagAId, mtr.TagBId });
+            modelBuilder.Entity<MotionDebateFormat>()
+                .HasOne<Motion>(mdf => mdf.Motion)
+                .WithMany(m => m.DebateFormats)
+                .HasForeignKey(mdf => mdf.MotionId);
+
+            modelBuilder.Entity<MotionDebateFormat>()
+                .HasOne<DebateFormat>(mdf => mdf.DebateFormat)
+                .WithMany(df => df.Motions)
+                .HasForeignKey(mdf => mdf.DebateFormatId);
         }
     }
 }
