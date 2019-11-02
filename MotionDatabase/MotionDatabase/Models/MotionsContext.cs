@@ -15,6 +15,7 @@ namespace MotionDatabase.Models
         public DbSet<Tournament> Tournaments { get; set; }
         public DbSet<TournamentInstance> TournamentInstances { get; set; }
         public DbSet<DebatingOrganisation> Organisations { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public MotionsContext(DbContextOptions<MotionsContext> options) : base(options) { }
 
