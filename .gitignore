@@ -13,8 +13,9 @@ project.lock.json
 *.userosscache
 *.sln.docstates
 
-# Contains keys, see Development version for info
-appsettings.json
+# Keys placed in development/production appSettings
+appsettings.Development.json
+appsettings.Production.json
 
 # Build results
 [Dd]ebug/
