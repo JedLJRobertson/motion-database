@@ -81,8 +81,6 @@ namespace MotionDatabase
                 DevelopmentDatabaseSetup.SetupDevelopmentDatabase(db);
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions
