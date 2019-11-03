@@ -1,4 +1,4 @@
-﻿namespace MotionDatabase.Models
+﻿namespace MotionDatabaseBackend.Models
 {
     public class TournamentInstance
     {
@@ -12,5 +12,7 @@
 
         public int ParentTournamentId;
         public TournamentInstance ParentTournament { get; set; }
+        public int FormatId { get; set; }
+        public DebateFormat Format { get; set; }
     }
 }

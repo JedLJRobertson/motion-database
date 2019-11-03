@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using MotionDatabase.Dto;
-using MotionDatabase.Helpers;
-using MotionDatabase.Models;
 using MotionDatabaseBackend.Dto;
+using MotionDatabaseBackend.Helpers;
+using MotionDatabaseBackend.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,7 +13,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MotionDatabase.Controllers
+namespace MotionDatabaseBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

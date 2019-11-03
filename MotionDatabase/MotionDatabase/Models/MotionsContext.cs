@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MotionDatabase.Models
+namespace MotionDatabaseBackend.Models
 {
     public class MotionsContext : DbContext 
     {

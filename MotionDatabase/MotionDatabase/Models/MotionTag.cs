@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MotionDatabase.Models
+namespace MotionDatabaseBackend.Models
 {
     public enum TagStatus { Approved, WaitingApproval, Denied }
     public class MotionTag

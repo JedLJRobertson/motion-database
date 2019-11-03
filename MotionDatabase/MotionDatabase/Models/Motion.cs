@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MotionDatabase.Models
+namespace MotionDatabaseBackend.Models
 {
     public enum MotionState { Approved, WaitingApproval, Denied }
     public enum MotionDifficulty { Novice, Intermediate, Expert }

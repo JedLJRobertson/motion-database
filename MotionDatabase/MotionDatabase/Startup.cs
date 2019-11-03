@@ -11,14 +11,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MotionDatabase.Helpers;
-using MotionDatabase.Models;
+using MotionDatabaseBackend.Helpers;
+using MotionDatabaseBackend.Models;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Logging;
-using MotionDatabaseBackend.Helpers;
 
 namespace MotionDatabase
 {
