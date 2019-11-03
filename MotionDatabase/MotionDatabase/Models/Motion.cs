@@ -19,6 +19,7 @@ namespace MotionDatabaseBackend.Models
         public IList<MotionDebateFormat> DebateFormats { get; } = new List<MotionDebateFormat>();
 
         public IList<MotionTagAssignment> Tags { get; } = new List<MotionTagAssignment>();
+        public IList<MotionDebateRound> DebatedRounds { get; } = new List<MotionDebateRound>();
 
         internal void AddTag(MotionTag tag)
         {

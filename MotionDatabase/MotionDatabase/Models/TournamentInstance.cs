@@ -1,4 +1,6 @@
-﻿namespace MotionDatabaseBackend.Models
+﻿using System.Collections.Generic;
+
+namespace MotionDatabaseBackend.Models
 {
     public class TournamentInstance
     {
@@ -14,5 +16,7 @@
         public TournamentInstance ParentTournament { get; set; }
         public int FormatId { get; set; }
         public DebateFormat Format { get; set; }
+
+        public IList<MotionDebateRound> DebatedMotions { get; } = new List<MotionDebateRound>();
     }
 }
