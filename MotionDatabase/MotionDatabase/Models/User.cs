@@ -13,6 +13,6 @@ namespace MotionDatabase.Models
         public string PasswordHash { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsModerator { get; set; }
-        public bool IsValid { get; set; }
+        public bool IsConfirmed { get; set; }
     }
 }

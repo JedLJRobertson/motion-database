@@ -16,6 +16,8 @@ using MotionDatabase.Models;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Logging;
 
 namespace MotionDatabase
 {
@@ -33,8 +35,6 @@ namespace MotionDatabase
         {
             services.AddDbContext<MotionsContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddControllers();
 
             // JWT
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -57,15 +57,42 @@ namespace MotionDatabase
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = true
+                    ValidateAudience = false
                 };
             });
+
+            services.AddControllers();
         }
 
         // Used to configure a development database instance form scratch
         public void ConfigureDevDatabase(MotionsContext db)
         {
+            var hasher = new PasswordHasher<User>();
 
+            var testUser = new User
+            {
+                Username = "test",
+                Email = "test@example.com",
+                IsAdmin = true,
+                IsModerator = true,
+                IsConfirmed = true
+            };
+            testUser.PasswordHash = hasher.HashPassword(testUser, "test");
+            db.Users.Add(testUser);
+
+            var testUser2 = new User
+            {
+                Username = "test2",
+                Email = "test2@example.com",
+                IsAdmin = false,
+                IsModerator = false,
+                IsConfirmed = true
+            };
+            testUser.PasswordHash = hasher.HashPassword(testUser, "test");
+            db.Users.Add(testUser);
+            db.Users.Add(testUser2);
+
+            db.SaveChanges();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +101,7 @@ namespace MotionDatabase
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                IdentityModelEventSource.ShowPII = true;
 
                 using var serviceScope = app.ApplicationServices.CreateScope();
 
@@ -87,6 +115,7 @@ namespace MotionDatabase
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

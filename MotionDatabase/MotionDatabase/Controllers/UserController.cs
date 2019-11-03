@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MotionDatabase.Dto;
 using MotionDatabase.Helpers;
 using MotionDatabase.Models;
+using MotionDatabaseBackend.Dto;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -22,15 +24,15 @@ namespace MotionDatabase.Controllers
         private readonly PasswordHasher<User> _hasher;
         private readonly AppSettings _appSettings;
 
-        public UserController(MotionsContext context, AppSettings appSettings, PasswordHasher<User> hasher)
+        public UserController(MotionsContext context, IOptions<AppSettings> appSettings)
         {
             _context = context;
-            _appSettings = appSettings;
-            _hasher = hasher;
+            _appSettings = appSettings.Value;
+            _hasher = new PasswordHasher<User>();
         }
 
         [HttpPost]
-        public ActionResult<SecurityToken> Login(LoginDto login)
+        public ActionResult<LoggedInDto> Login(LoginDto login)
         {
             var user = _context.Users.First(u => u.Username.ToLower() == login.Username.ToLower());
 
@@ -39,12 +41,12 @@ namespace MotionDatabase.Controllers
                 return new NotFoundResult();
             }
 
-            if (_hasher.VerifyHashedPassword(user, user.PasswordHash, login.Password) == PasswordVerificationResult.Success)
+            if (_hasher.VerifyHashedPassword(user, user.PasswordHash, login.Password) != PasswordVerificationResult.Success)
             {
-                return new NotFoundResult();
+                return new ForbidResult();
             }
 
-            // authentication successful so generate jwt token
+            // Issue JWT
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.JWTSecret);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -58,7 +60,7 @@ namespace MotionDatabase.Controllers
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return token;
+            return new LoggedInDto(user, tokenHandler.WriteToken(token));
         }
 
         protected bool AddUser(string username, string email, string password)
