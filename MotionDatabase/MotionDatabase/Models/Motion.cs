@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MotionDatabase.Models
 {
@@ -15,8 +16,17 @@ namespace MotionDatabase.Models
         public  int CategoryId { get; set; }
         public MotionCategory Category { get; set; }
 
-        public IList<MotionDebateFormat> DebateFormats { get; set; }
+        public IList<MotionDebateFormat> DebateFormats { get; } = new List<MotionDebateFormat>();
 
-        public IList<MotionTagAssignment> Tags { get; set; }
+        public IList<MotionTagAssignment> Tags { get; } = new List<MotionTagAssignment>();
+
+        internal void AddTag(MotionTag tag)
+        {
+            this.Tags.Add(new MotionTagAssignment
+            {
+                Motion = this,
+                MotionTag = tag
+            });
+        }
     }
 }

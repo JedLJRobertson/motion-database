@@ -6,6 +6,6 @@ namespace MotionDatabase.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IList<MotionDebateFormat> Motions { get; set; }
+        public IList<MotionDebateFormat> Motions { get; } = new List<MotionDebateFormat>();
     }
 }

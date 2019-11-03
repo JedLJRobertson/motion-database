@@ -10,6 +10,6 @@ namespace MotionDatabase.Models
         public int OrganisationId { get; set; }
         public DebatingOrganisation Organisation { get; set; }
 
-        public IList<TournamentInstance> Instances { get; set; }
+        public IList<TournamentInstance> Instances { get; } = new List<TournamentInstance>();
     }
 }

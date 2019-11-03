@@ -92,6 +92,37 @@ namespace MotionDatabase
             db.Users.Add(testUser);
             db.Users.Add(testUser2);
 
+            var cat1 = new MotionCategory
+            {
+                Name = "International Relations",
+                Description = "Motions that discuss relations between nation states."
+            };
+            var cat2 = new MotionCategory
+            {
+                Name = "Politics",
+                Description = "Motions that discuss (non-IR) politics."
+            };
+            db.MotionCategories.Add(cat1);
+            db.MotionCategories.Add(cat2);
+
+            var tag1 = new MotionTag
+            {
+                Name = "Trial Tag"
+            };
+            db.MotionTags.Add(tag1);
+
+            db.Motions.Add(new Motion
+            {
+                MotionText = "Motion 1",
+                Category = cat1,
+                IsExplicit = false,
+                State = MotionState.Approved,
+                Difficulty = MotionDifficulty.Novice
+            });
+
+            db.SaveChanges();
+            db.Motions.Find(1).AddTag(tag1);
+
             db.SaveChanges();
         }
 
