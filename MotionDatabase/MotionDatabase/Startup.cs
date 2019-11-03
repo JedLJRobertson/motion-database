@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace MotionDatabase
 {
@@ -83,6 +84,11 @@ namespace MotionDatabase
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();
