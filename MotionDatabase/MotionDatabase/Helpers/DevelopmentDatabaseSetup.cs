@@ -64,6 +64,33 @@ namespace MotionDatabaseBackend.Helpers
                 Difficulty = MotionDifficulty.Novice
             });
 
+            db.Motions.Add(new Motion
+            {
+                MotionText = "Motion 2",
+                Category = cat1,
+                IsExplicit = false,
+                State = MotionState.Approved,
+                Difficulty = MotionDifficulty.Novice
+            });
+
+            db.Motions.Add(new Motion
+            {
+                MotionText = "Motion 3",
+                Category = cat2,
+                IsExplicit = false,
+                State = MotionState.Approved,
+                Difficulty = MotionDifficulty.Novice
+            });
+
+            db.Motions.Add(new Motion
+            {
+                MotionText = "Motion Awaiting Approval",
+                Category = cat2,
+                IsExplicit = false,
+                State = MotionState.WaitingApproval,
+                Difficulty = MotionDifficulty.Novice
+            });
+
             db.SaveChanges();
             db.Motions.Find(1).AddTag(tag1);
 
