@@ -14,8 +14,7 @@ project.lock.json
 *.sln.docstates
 
 # Keys placed in development/production appSettings
-appsettings.Development.json
-appsettings.Release.json
+appsettings.*.json
 
 # Build results
 [Dd]ebug/
