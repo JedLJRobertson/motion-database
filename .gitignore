@@ -15,7 +15,7 @@ project.lock.json
 
 # Keys placed in development/production appSettings
 appsettings.Development.json
-appsettings.Production.json
+appsettings.Release.json
 
 # Build results
 [Dd]ebug/
