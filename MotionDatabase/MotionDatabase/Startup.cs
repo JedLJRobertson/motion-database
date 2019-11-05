@@ -31,11 +31,25 @@ namespace MotionDatabase
 
         public IConfiguration Configuration { get; }
 
+        private readonly string DevCorsPolicy = "_devCors";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MotionsContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(DevCorsPolicy,
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    });
+            });
 
             // JWT
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -87,6 +101,12 @@ namespace MotionDatabase
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
+
+            if (env.IsDevelopment())
+            {
+                app.UseCors(DevCorsPolicy);
+            }
+
 
             app.UseAuthentication();
             app.UseAuthorization();
