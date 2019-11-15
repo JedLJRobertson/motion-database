@@ -28,11 +28,7 @@ namespace MotionDatabaseBackend.Dto
 
                 foreach (var tag in motion.Tags)
                 {
-                    motionDto.Tags.Add(new TagDto
-                    {
-                        Id = tag.MotionTagId,
-                        Name = tag.MotionTag.Name
-                    });
+                    motionDto.Tags.Add(new TagDto(tag.MotionTag));
                 }
 
                 Results.Add(motionDto);
