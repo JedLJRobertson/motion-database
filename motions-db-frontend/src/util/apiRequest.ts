@@ -12,4 +12,14 @@ export default class ApiRequest {
 
     return rp.default(options);
   }
+
+  public static async Get(apiSubUrl: string) {
+    const options = {
+      method: 'GET',
+      uri: API_URL + apiSubUrl,
+      json: true,
+    };
+
+    return rp.default(options);
+  }
 }
