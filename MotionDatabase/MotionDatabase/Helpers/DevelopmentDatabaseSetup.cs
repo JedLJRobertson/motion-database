@@ -77,7 +77,7 @@ namespace MotionDatabaseBackend.Helpers
             {
                 MotionText = "Motion 3",
                 Category = cat2,
-                IsExplicit = false,
+                IsExplicit = true,
                 State = MotionState.Approved,
                 Difficulty = MotionDifficulty.Novice
             });

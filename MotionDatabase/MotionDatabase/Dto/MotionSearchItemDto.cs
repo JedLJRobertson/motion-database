@@ -11,6 +11,7 @@ namespace MotionDatabaseBackend.Dto
         public string Text { get; set; }
         public int CategoryId { get; set; }
         public string Category { get; set; }
+        public bool IsExplicit { get; set; }
         public IList<TagDto> Tags { get; set; }
     }
 }

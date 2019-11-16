@@ -26,12 +26,21 @@ namespace MotionDatabaseBackend.Controllers
         {
             var query = _context.Motions.AsQueryable();
 
-            if (request.CategoryId != null)
+            if (request.Categories != null && request.Categories.Count > 0)
             {
-                query = query.Where(m => m.CategoryId == request.CategoryId);
+                query = query.Where(m => request.Categories.Contains(m.CategoryId));
             }
 
-            if (request.Tags != null)
+            if (request.ExplicitMode == 0)
+            {
+                query = query.Where(m => m.IsExplicit == false);
+            } 
+            else if (request.ExplicitMode == 2)
+            {
+                query = query.Where(m => m.IsExplicit == true);
+            }
+
+            if (request.Tags != null && request.Tags.Count > 0)
             {
                 if (request.AllTags)
                 {

@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="motion-item" v-for="motion of motions" v-bind:key="motion.id">
+      <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
       <h5> {{ motion.text }} </h5>
       {{ motion.category }}
         <span class='motion-tags'>

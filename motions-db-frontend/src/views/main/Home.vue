@@ -30,14 +30,16 @@
         </label>
       </div>
       <div class="form-group mt-2">
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option default>Age Appropriate</option>
-          <option>Include Explicit Motions</option>
-          <option>Explicit Motions Only</option>
+        <select class="form-control" v-model='explicit'>
+          <option default value="0">Age Appropriate</option>
+          <option value="1">Include Explicit Motions</option>
+          <option value="2">Explicit Motions Only</option>
         </select>
       </div>
     </div>
+    <div class='btn btn-primary' style='cursor: pointer;' v-on:click='runSearch'> Search </div>
     <hr>
+    {{ queryDescription }}
     <motion-list-summary :motions="motions"> </motion-list-summary>
   </div>
 </template>
@@ -66,6 +68,7 @@ export default Vue.extend({
       lastTagQuery: undefined,
       tagsExclusive: false,
       query: {},
+      explicit: 0,
     };
   },
   components: {
@@ -98,6 +101,15 @@ export default Vue.extend({
           this.$data.filteredTags = response.map((tag: any) => ({ id: tag.id, text: tag.name }));
         }
       }, 600);
+    },
+    async runSearch() {
+      this.$data.query = {
+        categories: this.$data.selectedCategories.map(cat => cat.id),
+        tags: this.$data.selectedTags.map(tag => tag.id),
+        allTags: this.$data.tagsExclusive,
+        explicitMode: parseInt(this.$data.explicit, 10),
+      };
+      this.runQuery();
     },
   },
   computed: {

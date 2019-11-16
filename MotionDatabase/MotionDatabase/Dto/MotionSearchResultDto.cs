@@ -23,6 +23,7 @@ namespace MotionDatabaseBackend.Dto
                     Text = motion.MotionText,
                     Category = motion.Category.Name,
                     CategoryId = motion.CategoryId,
+                    IsExplicit = motion.IsExplicit,
                     Tags = new List<TagDto>()
                 };
 
