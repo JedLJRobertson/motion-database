@@ -37,24 +37,24 @@
         </select>
       </div>
 
-      <div class='w-25 float-left'>
+      <div class='motion-difficulty-option float-left'>
         Motion Difficulty:
       </div>
-      <div class="form-check w-25 float-left">
+      <div class="form-check motion-difficulty-option float-left">
         <input type='checkbox' class='form-check-input' id='difficulty-easy'
           v-model='difficultyEasy' />
         <label class='form-check-label' for='difficulty-easy'>
           Novice
         </label>
       </div>
-      <div class="form-check w-25 float-left">
+      <div class="form-check motion-difficulty-option float-left">
         <input type='checkbox' class='form-check-input' id='difficulty-medium'
           v-model='difficultyMedium' />
         <label class='form-check-label' for='difficulty-medium'>
           Intermediate
         </label>
       </div>
-      <div class="form-check w-25 float-left">
+      <div class="form-check motion-difficulty-option float-left">
         <input type='checkbox' class='form-check-input' id='difficulty-hard'
           v-model='difficultyHard' />
         <label class='form-check-label' for='difficulty-hard'>
@@ -171,4 +171,13 @@ export default Vue.extend({
 .ti-input {
   width: 100% !important;
 }
+.motion-difficulty-option {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .motion-difficulty-option {
+    width: 25%;
+  }
+}
+
 </style>
