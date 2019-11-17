@@ -4,6 +4,9 @@
       <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
       <h5> {{ motion.text }} </h5>
       {{ motion.category }}
+        <span class='motion-difficulty-easy' v-if='motion.difficulty === 0'> Novice </span>
+        <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'> Intermediate </span>
+        <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
         <span class='motion-tags'>
           {{ motion.tags.map(t => t.name).join(', ') }}
         </span>
@@ -58,5 +61,15 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.motion-difficulty-easy {
+  color: #006f3c;
+}
+.motion-difficulty-medium {
+  color: #264b96;
+}
+.motion-difficulty-hard {
+  color: #bf212f;
 }
 </style>

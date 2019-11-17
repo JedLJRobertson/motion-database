@@ -36,8 +36,34 @@
           <option value="2">Explicit Motions Only</option>
         </select>
       </div>
+
+      <div class='w-25 float-left'>
+        Motion Difficulty:
+      </div>
+      <div class="form-check w-25 float-left">
+        <input type='checkbox' class='form-check-input' id='difficulty-easy'
+          v-model='difficultyEasy' />
+        <label class='form-check-label' for='difficulty-easy'>
+          Novice
+        </label>
+      </div>
+      <div class="form-check w-25 float-left">
+        <input type='checkbox' class='form-check-input' id='difficulty-medium'
+          v-model='difficultyMedium' />
+        <label class='form-check-label' for='difficulty-medium'>
+          Intermediate
+        </label>
+      </div>
+      <div class="form-check w-25 float-left">
+        <input type='checkbox' class='form-check-input' id='difficulty-hard'
+          v-model='difficultyHard' />
+        <label class='form-check-label' for='difficulty-hard'>
+          Expert
+        </label>
+      </div>
+
     </div>
-    <div class='btn btn-primary' style='cursor: pointer;' v-on:click='runSearch'> Search </div>
+    <div class='btn btn-primary mt-2' style='cursor: pointer;' v-on:click='runSearch'> Search </div>
     <hr>
     {{ queryDescription }}
     <motion-list-summary :motions="motions"> </motion-list-summary>
@@ -69,6 +95,9 @@ export default Vue.extend({
       tagsExclusive: false,
       query: {},
       explicit: 0,
+      difficultyEasy: true,
+      difficultyMedium: true,
+      difficultyHard: true,
     };
   },
   components: {
@@ -103,11 +132,17 @@ export default Vue.extend({
       }, 600);
     },
     async runSearch() {
+      const difficulties = [];
+      if (this.$data.difficultyEasy) difficulties.push(0);
+      if (this.$data.difficultyMedium) difficulties.push(1);
+      if (this.$data.difficultyHard) difficulties.push(2);
+
       this.$data.query = {
         categories: this.$data.selectedCategories.map(cat => cat.id),
         tags: this.$data.selectedTags.map(tag => tag.id),
         allTags: this.$data.tagsExclusive,
         explicitMode: parseInt(this.$data.explicit, 10),
+        difficulties,
       };
       this.runQuery();
     },
