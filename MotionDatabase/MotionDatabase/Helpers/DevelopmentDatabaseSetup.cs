@@ -24,6 +24,8 @@ namespace MotionDatabaseBackend.Helpers
             testUser.PasswordHash = hasher.HashPassword(testUser, "test");
             db.Users.Add(testUser);
 
+
+
             var testUser2 = new User
             {
                 Username = "test2",
@@ -57,7 +59,7 @@ namespace MotionDatabaseBackend.Helpers
 
             db.Motions.Add(new Motion
             {
-                MotionText = "Motion 1",
+                MotionText = "This house would ban religious organisations from providing rehabilitation for alcohol, drug and mental health addiction.",
                 Category = cat1,
                 IsExplicit = false,
                 State = MotionState.Approved,
@@ -66,11 +68,11 @@ namespace MotionDatabaseBackend.Helpers
 
             db.Motions.Add(new Motion
             {
-                MotionText = "Motion 2",
+                MotionText = "This house believes that governments should not contact ‘uncontacted’ peoples eg people living in the densely forested areas of South America, Central Africa and New Guinea.",
                 Category = cat1,
                 IsExplicit = false,
                 State = MotionState.Approved,
-                Difficulty = MotionDifficulty.Novice
+                Difficulty = MotionDifficulty.Intermediate
             });
 
             db.Motions.Add(new Motion
@@ -79,7 +81,7 @@ namespace MotionDatabaseBackend.Helpers
                 Category = cat2,
                 IsExplicit = true,
                 State = MotionState.Approved,
-                Difficulty = MotionDifficulty.Novice
+                Difficulty = MotionDifficulty.Expert
             });
 
             db.Motions.Add(new Motion
