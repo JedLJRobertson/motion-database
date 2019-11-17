@@ -40,6 +40,28 @@ namespace MotionDatabaseBackend.Controllers
                 query = query.Where(m => m.IsExplicit == true);
             }
 
+            if (request.Difficulties != null && request.Difficulties.Count > 0)
+            {
+                var difficulties = new List<MotionDifficulty>();
+                request.Difficulties.ForEach((difficultyN) =>
+                {
+                    switch (difficultyN)
+                    {
+                        case 0:
+                            difficulties.Add(MotionDifficulty.Novice);
+                        break;
+                        case 1:
+                            difficulties.Add(MotionDifficulty.Intermediate);
+                        break;
+                        case 2:
+                            difficulties.Add(MotionDifficulty.Expert);
+                        break;
+                    }
+                });
+
+                query = query.Where(m => difficulties.Contains(m.Difficulty));
+            }
+
             if (request.Tags != null && request.Tags.Count > 0)
             {
                 if (request.AllTags)

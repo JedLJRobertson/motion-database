@@ -24,6 +24,7 @@ namespace MotionDatabaseBackend.Dto
                     Category = motion.Category.Name,
                     CategoryId = motion.CategoryId,
                     IsExplicit = motion.IsExplicit,
+                    Difficulty = (int) motion.Difficulty,
                     Tags = new List<TagDto>()
                 };
 
