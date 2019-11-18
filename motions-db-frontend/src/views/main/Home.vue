@@ -65,7 +65,6 @@
     </div>
     <div class='btn btn-primary mt-2' style='cursor: pointer;' v-on:click='runSearch'> Search </div>
     <hr>
-    {{ queryDescription }}
     <motion-list-summary :motions="motions"> </motion-list-summary>
   </div>
 </template>
