@@ -16,10 +16,28 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import ApiRequest from '@/util/apiRequest';
+import { API_MOTION_SEARCH } from '@/util/config';
 
 export default Vue.extend({
+  name: 'MotionSearchView',
   props: {
-    motions: { type: Array },
+    query: {},
+  },
+  data: () => ({
+    motions: undefined,
+  }),
+  methods: {
+    async runQuery() {
+      const response = await ApiRequest.Post(API_MOTION_SEARCH, this.$props.query);
+      this.$data.motions = response.results;
+    },
+  },
+  watch: {
+    query: 'runQuery',
+  },
+  mounted() {
+    this.runQuery();
   },
 });
 </script>

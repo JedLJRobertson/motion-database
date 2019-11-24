@@ -65,7 +65,7 @@
     </div>
     <div class='btn btn-primary mt-2' style='cursor: pointer;' v-on:click='runSearch'> Search </div>
     <hr>
-    <motion-list-summary :motions="motions"> </motion-list-summary>
+    <motion-search-view :query="query"> </motion-search-view>
   </div>
 </template>
 
@@ -73,7 +73,7 @@
 // @ is an alias to /src
 import Vue from 'vue';
 import VueTagsInput from '@johmun/vue-tags-input';
-import MotionListSummary from '@/components/MotionListSummary.vue';
+import MotionSearchView from '@/components/MotionSearchView.vue';
 import ApiRequest from '@/util/apiRequest';
 
 import { API_MOTION_SEARCH, API_GET_CATEGORIES, API_TAG_QUERY } from '../../util/config';
@@ -82,7 +82,6 @@ export default Vue.extend({
   name: 'home',
   data() {
     return {
-      motions: undefined,
       categorySearch: '',
       categories: [],
       selectedCategories: [],
@@ -100,14 +99,10 @@ export default Vue.extend({
     };
   },
   components: {
-    MotionListSummary,
+    MotionSearchView,
     VueTagsInput,
   },
   methods: {
-    async runQuery() {
-      const response = await ApiRequest.Post(API_MOTION_SEARCH, this.$data.query);
-      this.$data.motions = response.results;
-    },
     async getCategories() {
       const response = await ApiRequest.Get(API_GET_CATEGORIES);
       this.$data.categories = response;
@@ -143,7 +138,6 @@ export default Vue.extend({
         explicitMode: parseInt(this.$data.explicit, 10),
         difficulties,
       };
-      this.runQuery();
     },
   },
   computed: {
@@ -157,7 +151,6 @@ export default Vue.extend({
     tagSearch: 'runTagSearch',
   },
   mounted() {
-    this.runQuery();
     this.getCategories();
     this.runTagSearch();
   },
