@@ -1,5 +1,7 @@
 # motions-db-frontend
 
+See project README
+
 ## Project setup
 ```
 npm install
