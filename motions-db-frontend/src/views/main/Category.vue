@@ -11,7 +11,7 @@
       </label>
     </div>
     <hr>
-    <motion-search-view v-bind:query='query'> </motion-search-view>
+    <motion-search-view v-bind:query='query' v-if='queryReady'> </motion-search-view>
   </div>
 </template>
 
@@ -31,6 +31,7 @@ export default Vue.extend({
       categoryName: '',
       categoryDescription: '',
       includeExplicit: false,
+      queryReady: false,
     };
   },
   components: {
@@ -38,9 +39,18 @@ export default Vue.extend({
   },
   methods: {
     async load() {
-      const response = await ApiRequest.Get(API_CATEGORY_QUERY + this.$route.params.id);
-      this.$data.categoryName = response.name;
-      this.$data.categoryDescription = response.description;
+      try {
+        const response = await ApiRequest.Get(API_CATEGORY_QUERY + this.$route.params.id);
+        this.$data.categoryName = response.name;
+        this.$data.categoryDescription = response.description;
+        this.$data.queryReady = true;
+      } catch (error) {
+        if (error.statusCode === 404) {
+          this.$data.categoryName = 'Not Found';
+        } else {
+          throw error;
+        }
+      }
     },
   },
   beforeRouteUpdate(to, from, next) {
