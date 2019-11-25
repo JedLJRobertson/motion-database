@@ -1,4 +1,4 @@
-name: CI
+name: Deploy to JedRobertson.com
 
 on: [push]
 
