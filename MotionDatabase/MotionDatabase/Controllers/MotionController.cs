@@ -24,7 +24,12 @@ namespace MotionDatabaseBackend.Controllers
         [Route("search")]
         public ActionResult<MotionSearchResultDto> Search(MotionSearchDto request)
         {
-            var query = _context.Motions.AsQueryable();
+            var query = _context.Motions
+                .Where(m => m.State == MotionState.Approved)
+                .Include(m => m.Category)
+                .Include(m => m.Tags)
+                    .ThenInclude(t => t.MotionTag)
+                .AsEnumerable();
 
             if (request.Categories != null && request.Categories.Count > 0)
             {
@@ -73,12 +78,6 @@ namespace MotionDatabaseBackend.Controllers
                     query = query.Where(m => request.Tags.Any(t => m.Tags.Any(mt => mt.MotionTagId == t)));
                 }
             }
-
-            query = query
-                .Where(m => m.State == MotionState.Approved)
-                .Include(m => m.Category)
-                .Include(m => m.Tags)
-                    .ThenInclude(t => t.MotionTag);
 
 
             var result = new MotionSearchResultDto(query.ToList())
