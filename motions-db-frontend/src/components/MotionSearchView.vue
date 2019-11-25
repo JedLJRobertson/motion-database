@@ -18,8 +18,11 @@
           </span>
       </router-link>
     </div>
-    <div v-else>
+    <div v-else-if="motions">
       No motions were found.
+    </div>
+    <div v-else>
+      Enter a query to search for motions.
     </div>
   </div>
 </template>
