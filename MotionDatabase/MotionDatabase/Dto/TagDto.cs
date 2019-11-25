@@ -11,9 +11,12 @@ namespace MotionDatabaseBackend.Dto
             Name = tag.Name;
 
             Synonyms = new List<string>();
-            foreach (var syn in tag.MotionTagSynonyms)
+            if (tag.MotionTagSynonyms != null)
             {
-                Synonyms.Add(syn.Name);
+                foreach (var syn in tag.MotionTagSynonyms)
+                {
+                    Synonyms.Add(syn.Name);
+                }
             }
         }
 
