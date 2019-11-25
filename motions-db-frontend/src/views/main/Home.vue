@@ -1,6 +1,6 @@
 <template>
   <div class="home mt-2">
-    <h2> 🔍 Search Emojis </h2>
+    <h2> 🔍 Search For Motions </h2>
     <div class='w-100'>
       <vue-tags-input
         placeholder="Search for Categories"
