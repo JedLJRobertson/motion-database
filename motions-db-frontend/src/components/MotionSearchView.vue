@@ -3,7 +3,9 @@
     <div class="motion-item" v-for="motion of motions" v-bind:key="motion.id">
       <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
       <h5> {{ motion.text }} </h5>
-      {{ motion.category }}
+      <router-link v-bind:to="'/category/' + motion.categoryId" class='category-link'>
+        {{ motion.category }}
+      </router-link>
         <span class='motion-difficulty-easy' v-if='motion.difficulty === 0'> Novice </span>
         <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'> Intermediate </span>
         <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
@@ -77,8 +79,12 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
+
+.category-link {
+  color: #2E3C50;
+}
+.category-link:hover {
+  text-decoration: underline;
 }
 
 .motion-difficulty-easy {

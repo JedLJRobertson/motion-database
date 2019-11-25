@@ -4,3 +4,4 @@ export const API_MOTION_SEARCH = 'motion/search';
 export const API_GET_CATEGORIES = 'category';
 
 export const API_TAG_QUERY = 'tag/';
+export const API_CATEGORY_QUERY = 'category/';

@@ -29,5 +29,19 @@ namespace MotionDatabaseBackend.Controllers
 
             return response;
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public ActionResult<CategoryDto> GetCategory(int id)
+        {
+            var result = _context.MotionCategories.Find(id);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return new CategoryDto(result);
+        }
     }
 }
