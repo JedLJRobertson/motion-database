@@ -11,7 +11,7 @@ namespace MotionDatabaseBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MotionController
+    public class MotionController : ControllerBase
     {
         private readonly MotionsContext _context;
 
@@ -39,7 +39,7 @@ namespace MotionDatabaseBackend.Controllers
             if (request.ExplicitMode == 0)
             {
                 query = query.Where(m => m.IsExplicit == false);
-            } 
+            }
             else if (request.ExplicitMode == 2)
             {
                 query = query.Where(m => m.IsExplicit == true);
@@ -54,13 +54,13 @@ namespace MotionDatabaseBackend.Controllers
                     {
                         case 0:
                             difficulties.Add(MotionDifficulty.Novice);
-                        break;
+                            break;
                         case 1:
                             difficulties.Add(MotionDifficulty.Intermediate);
-                        break;
+                            break;
                         case 2:
                             difficulties.Add(MotionDifficulty.Expert);
-                        break;
+                            break;
                     }
                 });
 
@@ -72,7 +72,7 @@ namespace MotionDatabaseBackend.Controllers
                 if (request.AllTags)
                 {
                     query = query.Where(m => request.Tags.All(t => m.Tags.Any(mt => mt.MotionTagId == t)));
-                } 
+                }
                 else
                 {
                     query = query.Where(m => request.Tags.Any(t => m.Tags.Any(mt => mt.MotionTagId == t)));
@@ -85,6 +85,25 @@ namespace MotionDatabaseBackend.Controllers
                 Query = request
             };
             return result;
+
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<MotionDto> GetMotion(int id)
+        {
+            var result = _context.Motions
+                .Where(m => m.Id == id)
+                .Include(m => m.Category)
+                .Include(m => m.Tags)
+                    .ThenInclude(mt => mt.MotionTag)
+                .FirstOrDefault();
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return new MotionDto(result);
         }
     }
 }

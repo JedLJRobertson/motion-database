@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div tag="div" v-bind:to="'/motion/' + motion.id"
+    <router-link tag="div" v-bind:to="'/motion/' + motion.id"
      class="motion-item" v-for="motion of motions" v-bind:key="motion.id">
       <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
       <h5> {{ motion.text }} </h5>
@@ -13,7 +13,7 @@
           <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
             class='motion-tag'> {{ tag.name }}</router-link>
         </span>
-    </div>
+    </router-link>
   </div>
 </template>
 
