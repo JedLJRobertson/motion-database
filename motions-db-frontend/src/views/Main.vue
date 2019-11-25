@@ -4,9 +4,14 @@
       <div class="col-xl">
         <div class="content-card">
           <h1> Motions </h1>
-          <router-link to='/' class='mr-3'>Motion Search</router-link>
-          <router-link to='/category/' class='mr-3'>Categories</router-link>
-          <router-link to='/tag/' class='mr-3'>Tags</router-link>
+          <span v-if="this.$route.name === 'home'" class='mr-3'>Motion Search</span>
+          <router-link to='/' class='mr-3' v-else>Motion Search</router-link>
+
+          <span v-if="this.$route.name === 'categories'" class='mr-3'>Categories</span>
+          <router-link to='/category/' class='mr-3' v-else>Categories</router-link>
+
+          <span v-if="this.$route.name === 'tags'" class='mr-3'>Tags</span>
+          <router-link to='/tag/' class='mr-3' v-else>Tags</router-link>
         </div>
       </div>
     </div>
