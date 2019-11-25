@@ -46,7 +46,10 @@ namespace MotionDatabaseBackend.Controllers
         [HttpGet("{id}")]
         public ActionResult<TagDto> GetTag(int id)
         {
-            var result = _context.MotionTags.Find(id);
+            var result = _context.MotionTags
+                .Include(tag => tag.MotionTagSynonyms)
+                .Where(tag => tag.Id == id)
+                .FirstOrDefault();
 
             if (result == null)
             {

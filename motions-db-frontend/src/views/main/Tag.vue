@@ -1,6 +1,7 @@
 <template>
   <div class="home mt-2">
     <h2> Tag: {{ tagName }} </h2>
+    Synonyms: {{ tagSynonyms.join(", ") }} <p/>
     <router-link class="a" to="/"> Return to Search </router-link>
     <div class="form-check">
       <input type='checkbox' class='form-check-input' id='difficulty-easy'
@@ -28,6 +29,7 @@ export default Vue.extend({
   data() {
     return {
       tagName: '',
+      tagSynonyms: [],
       includeExplicit: false,
       queryReady: false,
     };
@@ -40,6 +42,7 @@ export default Vue.extend({
       try {
         const response = await ApiRequest.Get(API_TAG_QUERY_ID + this.$route.params.id);
         this.$data.tagName = response.name;
+        this.$data.tagSynonyms = response.synonyms;
         this.$data.queryReady = true;
       } catch (error) {
         if (error.statusCode === 404) {
