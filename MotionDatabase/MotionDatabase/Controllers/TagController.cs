@@ -11,7 +11,7 @@ namespace MotionDatabaseBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TagController
+    public class TagController : ControllerBase
     {
         private readonly MotionsContext _context;
 
@@ -20,12 +20,25 @@ namespace MotionDatabaseBackend.Controllers
             _context = context;
         }
 
-        [HttpGet("{query}")]
+        [HttpGet("query/{query}")]
         public ActionResult<List<TagDto>> GetMatchingTag(string query)
         {
             var response = new List<TagDto>();
-            _context.MotionTags.Where(tag => tag.Name.StartsWith(query)).ToList().ForEach(tag => response.Add(new TagDto(tag)));
+            _context.MotionTags.Where(tag => tag.Name.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)).ToList().ForEach(tag => response.Add(new TagDto(tag)));
             return response;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<TagDto> GetTag(int id)
+        {
+            var result = _context.MotionTags.Find(id);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return new TagDto(result);
         }
     }
 }

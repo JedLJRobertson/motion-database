@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="motion-item" v-for="motion of motions" v-bind:key="motion.id">
+    <router-link tag="div" v-bind:to="'/motion/' + motion.id"
+     class="motion-item" v-for="motion of motions" v-bind:key="motion.id">
       <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
       <h5> {{ motion.text }} </h5>
       <router-link v-bind:to="'/category/' + motion.categoryId" class='category-link'>
@@ -9,9 +10,10 @@
         <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'> Intermediate </span>
         <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
         <span class='motion-tags'>
-          {{ motion.tags.map(t => t.name).join(', ') }}
+          <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
+            class='motion-tag'> {{ tag.name }}</router-link>
         </span>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -58,8 +60,12 @@ export default Vue.extend({
   background-color: #eeeeee;
 }
 
-.motion-tags {
+.motion-tag {
   color: #888888;
+}
+.motion-tag:hover {
+  color: #555555;
+  text-decoration: underline;
 }
 
 h5 {
