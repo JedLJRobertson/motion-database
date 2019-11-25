@@ -4,8 +4,7 @@
       <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
       <h5> {{ motion.text }} </h5>
       <router-link v-bind:to="'/category/' + motion.categoryId" class='category-link'>
-        {{ motion.category }}
-      </router-link>
+        {{ motion.category }}</router-link>
         <span class='motion-difficulty-easy' v-if='motion.difficulty === 0'> Novice </span>
         <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'> Intermediate </span>
         <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
