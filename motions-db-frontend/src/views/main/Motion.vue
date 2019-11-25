@@ -81,4 +81,14 @@ export default Vue.extend({
   color: #555555;
   text-decoration: underline;
 }
+
+.motion-difficulty-easy {
+  color: #006f3c;
+}
+.motion-difficulty-medium {
+  color: #264b96;
+}
+.motion-difficulty-hard {
+  color: #bf212f;
+}
 </style>
