@@ -1,19 +1,26 @@
 <template>
   <div>
-    <router-link tag="div" v-bind:to="'/motion/' + motion.id"
-     class="motion-item" v-for="motion of motions" v-bind:key="motion.id">
-      <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
-      <h5> {{ motion.text }} </h5>
-      <router-link v-bind:to="'/category/' + motion.categoryId" class='category-link'>
-        {{ motion.category }}</router-link>
-        <span class='motion-difficulty-easy' v-if='motion.difficulty === 0'> Novice </span>
-        <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'> Intermediate </span>
-        <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
-        <span class='motion-tags'>
-          <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
-            class='motion-tag'> {{ tag.name }}</router-link>
-        </span>
-    </router-link>
+    <div v-if='motions.length > 0'>
+      <router-link tag="div" v-bind:to="'/motion/' + motion.id"
+      class="motion-item" v-for="motion of motions" v-bind:key="motion.id">
+        <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
+        <h5> {{ motion.text }} </h5>
+        <router-link v-bind:to="'/category/' + motion.categoryId" class='category-link'>
+          {{ motion.category }}</router-link>
+          <span class='motion-difficulty-easy' v-if='motion.difficulty === 0'> Novice </span>
+          <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'>
+            Intermediate
+          </span>
+          <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
+          <span class='motion-tags'>
+            <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
+              class='motion-tag'> {{ tag.name }}</router-link>
+          </span>
+      </router-link>
+    </div>
+    <div v-else>
+      No motions were found.
+    </div>
   </div>
 </template>
 
