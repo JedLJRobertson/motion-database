@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if='motions.length > 0'>
+    <div v-if='motions && motions.length > 0'>
       <router-link tag="div" v-bind:to="'/motion/' + motion.id"
       class="motion-item" v-for="motion of motions" v-bind:key="motion.id">
         <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
