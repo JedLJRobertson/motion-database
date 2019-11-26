@@ -96,6 +96,7 @@ namespace MotionDatabaseBackend.Controllers
                 .Include(m => m.Category)
                 .Include(m => m.Tags)
                     .ThenInclude(mt => mt.MotionTag)
+                .Include(m => m.InfoSlides)
                 .FirstOrDefault();
 
             if (result == null)

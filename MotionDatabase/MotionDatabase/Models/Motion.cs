@@ -13,8 +13,10 @@ namespace MotionDatabaseBackend.Models
         public MotionState State { get; set; }
         public MotionDifficulty Difficulty { get; set; }
 
-        public  int CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public MotionCategory Category { get; set; }
+
+        public IList<MotionInfoSlide> InfoSlides { get; set; } = new List<MotionInfoSlide>();
 
         public IList<MotionDebateFormat> DebateFormats { get; } = new List<MotionDebateFormat>();
 
