@@ -8,5 +8,7 @@ namespace MotionDatabaseBackend.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public TagStatus Status { get; set; }
+
+        public IList<MotionTagSynonym> MotionTagSynonyms { get; set; }
     }
 }

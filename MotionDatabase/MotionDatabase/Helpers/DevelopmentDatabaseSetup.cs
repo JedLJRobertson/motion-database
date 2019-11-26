@@ -57,6 +57,14 @@ namespace MotionDatabaseBackend.Helpers
             };
             db.MotionTags.Add(tag1);
 
+            var synonymTag = new MotionTagSynonym
+            {
+                Name = "Synonym",
+                MotionTag = tag1
+            };
+            db.TagSynonyms.Add(synonymTag);
+            
+
             db.Motions.Add(new Motion
             {
                 MotionText = "This house would ban religious organisations from providing rehabilitation for alcohol, drug and mental health addiction.",
