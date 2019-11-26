@@ -20,6 +20,13 @@
     Motion Tags: <br/>
     <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
       class='motion-tag'> {{ tag.name }}</router-link>
+    <p/>
+    <div v-if="motion.infoSlides && motion.infoSlides.length > 0">
+    Motion Infoslides: <br/>
+    <div class='info-slide' v-for='slide of motion.infoSlides' v-bind:key='slide.id'>
+      {{ slide.text }}
+    </div>
+    </div>
   </div>
 </template>
 
@@ -90,5 +97,11 @@ export default Vue.extend({
 }
 .motion-difficulty-hard {
   color: #bf212f;
+}
+
+.info-slide {
+  padding: 0.5em;
+  background-color: #eeeeee;
+  margin-top: 0.5em;
 }
 </style>
