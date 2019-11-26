@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { TITLE_TERMINATOR } from '@/util/config';
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,9 @@ const routes = [
         path: '/motion/:id',
         name: 'motion',
         component: () => import(/* webpackChunkName: "about" */ '../views/main/Motion.vue'),
+        meta: {
+          title: `Motion ${TITLE_TERMINATOR}`,
+        },
       },
       {
         path: '/category/:id',
@@ -35,6 +39,9 @@ const routes = [
         path: '/category',
         name: 'categories',
         component: () => import(/* webpackChunkName: "about" */ '../views/main/Categories.vue'),
+        meta: {
+          title: `All Categories ${TITLE_TERMINATOR}`,
+        },
       },
       {
         path: '/tag/:id',
@@ -45,6 +52,9 @@ const routes = [
         path: '/tag/',
         name: 'tags',
         component: () => import(/* webpackChunkName: "about" */ '../views/main/Tags.vue'),
+        meta: {
+          title: `Tag Search ${TITLE_TERMINATOR}`,
+        },
       },
     ],
   },

@@ -4,6 +4,21 @@
   </div>
 </template>
 
+<script lang='ts'>
+// @ is an alias to /src
+import Vue from 'vue';
+import ApiRequest from '@/util/apiRequest';
+
+import { API_MOTION_QUERY } from '@/util/config';
+
+export default Vue.extend({
+  watch: {
+    $route(to, from) {
+      document.title = to.meta.title || 'Motions Database';
+    },
+  },
+});
+</script>
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

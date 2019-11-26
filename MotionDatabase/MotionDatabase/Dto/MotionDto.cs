@@ -13,6 +13,7 @@ namespace MotionDatabaseBackend.Dto
         public bool IsExplicit { get; set; }
         public int Difficulty { get; set; }
         public IList<TagDto> Tags { get; set; }
+        public List<InfoSlideDto> InfoSlides { get; set; }
 
         public MotionDto(Motion motion)
         {
@@ -28,6 +29,15 @@ namespace MotionDatabaseBackend.Dto
             foreach (var tag in motion.Tags)
             {
                 Tags.Add(new TagDto(tag.MotionTag));
+            }
+
+            InfoSlides = new List<InfoSlideDto>();
+            if (motion.InfoSlides != null)
+            {
+                foreach (var infoSlide in motion.InfoSlides)
+                {
+                    InfoSlides.Add(new InfoSlideDto(infoSlide));
+                }
             }
         }
     }

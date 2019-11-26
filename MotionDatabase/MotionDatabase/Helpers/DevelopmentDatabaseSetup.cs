@@ -101,8 +101,19 @@ namespace MotionDatabaseBackend.Helpers
                 Difficulty = MotionDifficulty.Novice
             });
 
+            var infoSlide = new MotionInfoSlide
+            {
+                InfoSlideText = "You're a Republican member of Congress. You incidentally come across the single copy of a unique piece of evidence, that definitively proves collusion between Donald Trump and his campaign managers with the Russian government to help Trump win the US election. If you do not disclose the evidence, it will be impossible to prove the collusion beyond doubt."
+            };
+            var infoSlide2 = new MotionInfoSlide
+            {
+                InfoSlideText = "You are Sherlock Holmes, pursuing your arch nemesis, Moriarty. Moriarty is an elusive criminal mastermind with a global network. This network is responsible for countless murders, extortions and a number of other large-scale criminal acts. You have captured Moriarty’s henchman and have enough evidence to convict him of a number of charges, including murder. Before you take him to the police, the henchman offers to give you vital information about Moriarty’s plans and whereabouts which MAY lead you to finally catch him and foil his plans for evil- in exchange for letting the henchman go free. Your deductive reasoning tells you that this is not a trap."
+            };
+
             db.SaveChanges();
             db.Motions.Find(1).AddTag(tag1);
+            db.Motions.Find(1).InfoSlides.Add(infoSlide);
+            db.Motions.Find(1).InfoSlides.Add(infoSlide2);
 
             db.SaveChanges();
         }

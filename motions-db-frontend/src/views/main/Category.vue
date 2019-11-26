@@ -22,7 +22,7 @@ import Vue from 'vue';
 import MotionSearchView from '@/components/MotionSearchView.vue';
 import ApiRequest from '@/util/apiRequest';
 
-import { API_MOTION_SEARCH, API_GET_CATEGORIES, API_CATEGORY_QUERY } from '../../util/config';
+import { API_CATEGORY_QUERY, TITLE_TERMINATOR } from '../../util/config';
 
 export default Vue.extend({
   name: 'home',
@@ -42,6 +42,7 @@ export default Vue.extend({
       try {
         const response = await ApiRequest.Get(API_CATEGORY_QUERY + this.$route.params.id);
         this.$data.categoryName = response.name;
+        document.title = response.name + TITLE_TERMINATOR;
         this.$data.categoryDescription = response.description;
         this.$data.queryReady = true;
       } catch (error) {
