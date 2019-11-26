@@ -5,7 +5,7 @@ namespace MotionDatabaseBackend.Models
     public class Tournament
     {
         public int Id { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         public int OrganisationId { get; set; }
         public DebatingOrganisation Organisation { get; set; }
