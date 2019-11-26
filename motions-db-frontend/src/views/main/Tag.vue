@@ -21,7 +21,7 @@ import Vue from 'vue';
 import MotionSearchView from '@/components/MotionSearchView.vue';
 import ApiRequest from '@/util/apiRequest';
 
-import { API_TAG_QUERY_ID } from '../../util/config';
+import { API_TAG_QUERY_ID, TITLE_TERMINATOR } from '../../util/config';
 
 export default Vue.extend({
   name: 'home',
@@ -40,6 +40,7 @@ export default Vue.extend({
       try {
         const response = await ApiRequest.Get(API_TAG_QUERY_ID + this.$route.params.id);
         this.$data.tagName = response.name;
+        document.title = response.name + TITLE_TERMINATOR;
         this.$data.queryReady = true;
       } catch (error) {
         if (error.statusCode === 404) {
