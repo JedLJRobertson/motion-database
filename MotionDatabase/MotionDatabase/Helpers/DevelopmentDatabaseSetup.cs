@@ -136,8 +136,14 @@ namespace MotionDatabaseBackend.Helpers
                 Round = "Semi Final",
                 Tournament = tournamentInst,
             };
+            var round2 = new MotionDebateRound
+            {
+                Round = "1st Round (Open)",
+                Tournament = tournamentInst,
+            };
 
             db.Motions.Find(1).DebatedRounds.Add(round);
+            db.Motions.Find(1).DebatedRounds.Add(round2);
 
             db.SaveChanges();
         }

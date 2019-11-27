@@ -22,10 +22,20 @@
       class='motion-tag'> {{ tag.name }}</router-link>
     <p/>
     <div v-if="motion.infoSlides && motion.infoSlides.length > 0">
-    Motion Infoslides: <br/>
-    <div class='info-slide' v-for='slide of motion.infoSlides' v-bind:key='slide.id'>
-      {{ slide.text }}
+      Motion Infoslides: <br/>
+      <div class='info-slide' v-for='slide of motion.infoSlides' v-bind:key='slide.id'>
+        {{ slide.text }}
+      </div>
     </div>
+    <p/>
+    <div v-if="motion.rounds && motion.rounds.length > 0">
+      Known Debates of this Motion: <br/>
+      <router-link v-bind:to="'/tournament/' + round.tournamentId"
+        tag='div' class='round' v-for='round of motion.rounds' v-bind:key='round.id'>
+        <b> {{ round.tournamentYear }} </b>
+        {{ round.tournamentName }}
+        <i> {{ round.round }} </i>
+      </router-link>
     </div>
   </div>
 </template>
@@ -101,7 +111,23 @@ export default Vue.extend({
 
 .info-slide {
   padding: 0.5em;
+  margin-left: -0.5em;
+  margin-right: -0.5em;
   background-color: #eeeeee;
   margin-top: 0.5em;
+}
+
+.round {
+  padding: 0.5em;
+  margin-left: -0.5em;
+  margin-right: -0.5em;
+  background-color: #eeeeee;
+  margin-top: 0.5em;
+
+  cursor: pointer;
+}
+
+.round:hover {
+  background-color: #bbbbbb;
 }
 </style>
