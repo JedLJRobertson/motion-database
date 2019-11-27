@@ -119,18 +119,21 @@ namespace MotionDatabaseBackend.Helpers
             {
                 Name = "British Parliamentary"
             };
-            var tournament = new Tournament
+            var parentTournament = new ParentTournament
             {
                 Name = "Australs"
             };
-            var tournamentInst = new TournamentInstance
+            db.ParentTournaments.Add(parentTournament);
+            var tournamentInst = new Tournament
             {
                 Name = "Australs 2020",
                 Year = 2020,
                 Location = "Auckland",
-                ParentTournament = tournament,
+                ParentTournament = parentTournament,
                 Format = format,
             };
+            db.SaveChanges();
+            db.ParentTournaments.Find(1).Tournaments.Add(tournamentInst);
             var round = new MotionDebateRound
             {
                 Round = "Semi Final",

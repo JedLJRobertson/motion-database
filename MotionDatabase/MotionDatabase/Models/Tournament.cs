@@ -6,10 +6,17 @@ namespace MotionDatabaseBackend.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Year { get; set; }
+        public string Location { get; set; }
 
-        public int? OrganisationId { get; set; }
+        public int? OrganisationId;
         public DebatingOrganisation Organisation { get; set; }
 
-        public IList<TournamentInstance> Instances { get; } = new List<TournamentInstance>();
+        public int ParentTournamentId;
+        public ParentTournament ParentTournament { get; set; }
+        public int FormatId { get; set; }
+        public DebateFormat Format { get; set; }
+
+        public IList<MotionDebateRound> DebatedMotions { get; } = new List<MotionDebateRound>();
     }
 }
