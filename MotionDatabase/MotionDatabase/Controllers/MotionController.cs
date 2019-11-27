@@ -97,6 +97,8 @@ namespace MotionDatabaseBackend.Controllers
                 .Include(m => m.Tags)
                     .ThenInclude(mt => mt.MotionTag)
                 .Include(m => m.InfoSlides)
+                .Include(m => m.DebatedRounds)
+                    .ThenInclude(r => r.Tournament)
                 .FirstOrDefault();
 
             if (result == null)
