@@ -115,6 +115,30 @@ namespace MotionDatabaseBackend.Helpers
             db.Motions.Find(1).InfoSlides.Add(infoSlide);
             db.Motions.Find(1).InfoSlides.Add(infoSlide2);
 
+            var format = new DebateFormat
+            {
+                Name = "British Parliamentary"
+            };
+            var tournament = new Tournament
+            {
+                Name = "Australs"
+            };
+            var tournamentInst = new TournamentInstance
+            {
+                Name = "Australs 2020",
+                Year = 2020,
+                Location = "Auckland",
+                ParentTournament = tournament,
+                Format = format,
+            };
+            var round = new MotionDebateRound
+            {
+                Round = "Semi Final",
+                Tournament = tournamentInst,
+            };
+
+            db.Motions.Find(1).DebatedRounds.Add(round);
+
             db.SaveChanges();
         }
     }

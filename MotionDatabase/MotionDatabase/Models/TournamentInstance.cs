@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MotionDatabaseBackend.Models
 {
@@ -9,10 +10,10 @@ namespace MotionDatabaseBackend.Models
         public int Year { get; set; }
         public string Location { get; set; }
 
-        public int OrganisationId;
+        public int? OrganisationId;
         public DebatingOrganisation Organisation { get; set; }
 
-        public int ParentTournamentId;
+        public int? ParentTournamentId;
         public Tournament ParentTournament { get; set; }
         public int FormatId { get; set; }
         public DebateFormat Format { get; set; }
