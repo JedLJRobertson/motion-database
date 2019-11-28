@@ -36,14 +36,13 @@ export default Vue.extend({
   },
   methods: {
     async runTagSearch() {
-      if (this.$data.tagSearch.length < 2) {
-        this.$data.tags = undefined;
-        return;
-      }
-
       clearTimeout(this.$data.tagDebounce);
       this.$data.tagDebounce = setTimeout(async () => {
         if (this.$data.lastTagQuery !== this.$data.tagSearch) {
+          if (this.$data.tagSearch.length < 2) {
+            this.$data.tags = undefined;
+            return;
+          }
           this.$data.lastTagQuery = this.$data.tagSearch;
           const response = await ApiRequest.Get(API_TAG_QUERY
             + encodeURIComponent(this.$data.tagSearch));

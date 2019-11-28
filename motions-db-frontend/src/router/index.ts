@@ -58,6 +58,14 @@ const routes = [
       },
     ],
   },
+  {
+    path: '*',
+    name: 'notfound',
+    component: () => import(/* webpackChunkName: "login" */ '../views/NotFound.vue'),
+    meta: {
+      title: `Page Not Found ${TITLE_TERMINATOR}`,
+    },
+  },
 ];
 
 const router = new VueRouter({
