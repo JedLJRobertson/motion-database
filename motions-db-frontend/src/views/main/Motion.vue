@@ -2,30 +2,32 @@
   <div class="home mt-2">
     <h2> Motion </h2>
     <h3> {{ motionText }} </h3>
-    {{ categoryDescription }} <p>
     <router-link class="a" to="/"> Return to Search </router-link>
     <hr>
-    <div class='badge badge-danger buffer mb-3' v-if='motion.isExplicit'> Explicit </div>
+    <div v-if='motion'>
+      <div class='badge badge-danger buffer mb-3' v-if='motion.isExplicit'> Explicit </div>
 
-    Motion Difficulty:
-    <span class='motion-difficulty-easy' v-if='motion.difficulty === 0'> Novice </span>
-    <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'> Intermediate </span>
-    <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
-    <p/>
-    Motion Category:
-    <router-link v-bind:to="'/category/' + motion.categoryId"> {{ motion.category }} </router-link>
-    <br/>
-    <span class='category-desc'> {{ motion.categoryDescription }} </span>
-    <p/>
-    Motion Tags: <br/>
-    <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
-      class='motion-tag'> {{ tag.name }}</router-link>
-    <p/>
-    <div v-if="motion.infoSlides && motion.infoSlides.length > 0">
-    Motion Infoslides: <br/>
-    <div class='info-slide' v-for='slide of motion.infoSlides' v-bind:key='slide.id'>
-      {{ slide.text }}
-    </div>
+      Motion Difficulty:
+      <span class='motion-difficulty-easy' v-if='motion.difficulty === 0'> Novice </span>
+      <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'> Intermediate </span>
+      <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
+      <p/>
+      Motion Category:
+      <router-link v-bind:to="'/category/' + motion.categoryId"> {{ motion.category }}
+      </router-link>
+      <br/>
+      <span class='category-desc'> {{ motion.categoryDescription }} </span>
+      <p/>
+      Motion Tags: <br/>
+      <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
+        class='motion-tag'> {{ tag.name }}</router-link>
+      <p/>
+      <div v-if="motion.infoSlides && motion.infoSlides.length > 0">
+        Motion Infoslides: <br/>
+        <div class='info-slide' v-for='slide of motion.infoSlides' v-bind:key='slide.id'>
+          {{ slide.text }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
