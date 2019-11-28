@@ -31,7 +31,7 @@
       <p/>
       <div v-if="motion.rounds && motion.rounds.length > 0">
         Known Debates of this Motion: <br/>
-        <router-link v-bind:to="'/tournament/' + round.tournamentId"
+        <router-link v-bind:to="'/tournament/' + round.tournamentParentId"
           tag='div' class='round' v-for='round of motion.rounds' v-bind:key='round.id'>
           <b> {{ round.tournamentYear }} </b>
           {{ round.tournamentName }}
