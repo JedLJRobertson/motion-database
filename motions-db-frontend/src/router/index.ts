@@ -56,6 +56,19 @@ const routes = [
           title: `Tag Search ${TITLE_TERMINATOR}`,
         },
       },
+      {
+        path: '/tournament/:id',
+        name: 'tournament',
+        component: () => import(/* webpackChunkName: "about" */ '../views/main/Tournament.vue'),
+      },
+      {
+        path: '/tournament/',
+        name: 'tournaments',
+        component: () => import(/* webpackChunkName: "about" */ '../views/main/Tournaments.vue'),
+        meta: {
+          title: `Tournaments ${TITLE_TERMINATOR}`,
+        },
+      },
     ],
   },
   {

@@ -13,8 +13,9 @@ namespace MotionDatabaseBackend.Models
         public DbSet<MotionTag> MotionTags { get; set; }
         public DbSet<MotionCategory> MotionCategories { get; set; }
         public DbSet<MotionInfoSlide> InfoSlides { get; set; }
+        public DbSet<ParentTournament> ParentTournaments { get; set; }
+        public DbSet<ParentTournamentLink> ParentTournamentLinks { get; set; }
         public DbSet<Tournament> Tournaments { get; set; }
-        public DbSet<TournamentInstance> TournamentInstances { get; set; }
         public DbSet<DebatingOrganisation> Organisations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<MotionTagSynonym> TagSynonyms { get; set; }

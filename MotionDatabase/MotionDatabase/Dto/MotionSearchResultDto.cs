@@ -17,23 +17,7 @@ namespace MotionDatabaseBackend.Dto
 
             foreach (var motion in motions)
             {
-                var motionDto = new MotionSearchItemDto
-                {
-                    Id = motion.Id,
-                    Text = motion.MotionText,
-                    Category = motion.Category.Name,
-                    CategoryId = motion.CategoryId,
-                    IsExplicit = motion.IsExplicit,
-                    Difficulty = (int) motion.Difficulty,
-                    Tags = new List<TagDto>()
-                };
-
-                foreach (var tag in motion.Tags)
-                {
-                    motionDto.Tags.Add(new TagDto(tag.MotionTag));
-                }
-
-                Results.Add(motionDto);
+                Results.Add(new MotionSearchItemDto(motion));
             }
         }
     }

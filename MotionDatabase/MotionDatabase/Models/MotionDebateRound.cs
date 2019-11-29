@@ -11,7 +11,7 @@ namespace MotionDatabaseBackend.Models
         public int Id { get; set; }
         public string Round { get; set; }
         public int TournamentId { get; set; }
-        public TournamentInstance Tournament { get; set; }
+        public Tournament Tournament { get; set; }
         public int MotionId { get; set; }
         public Motion Motion { get; set; }
     }

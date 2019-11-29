@@ -14,6 +14,7 @@ namespace MotionDatabaseBackend.Dto
         public int Difficulty { get; set; }
         public IList<TagDto> Tags { get; set; }
         public List<InfoSlideDto> InfoSlides { get; set; }
+        public List<RoundOfMotionDto> Rounds { get; set; } 
 
         public MotionDto(Motion motion)
         {
@@ -37,6 +38,15 @@ namespace MotionDatabaseBackend.Dto
                 foreach (var infoSlide in motion.InfoSlides)
                 {
                     InfoSlides.Add(new InfoSlideDto(infoSlide));
+                }
+            }
+
+            Rounds = new List<RoundOfMotionDto>();
+            if (motion.DebatedRounds != null)
+            {
+                foreach (var round in motion.DebatedRounds)
+                {
+                    Rounds.Add(new RoundOfMotionDto(round));
                 }
             }
         }

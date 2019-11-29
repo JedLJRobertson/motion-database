@@ -20,3 +20,12 @@
 
     box-shadow: 0 0 10px 8px rgba(0, 0, 0, 0.3);
 }
+
+.link {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.link:hover {
+    text-decoration: underline;
+}

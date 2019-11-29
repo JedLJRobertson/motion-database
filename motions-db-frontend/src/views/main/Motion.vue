@@ -28,6 +28,16 @@
           {{ slide.text }}
         </div>
       </div>
+      <p/>
+      <div v-if="motion.rounds && motion.rounds.length > 0">
+        Known Debates of this Motion: <br/>
+        <router-link v-bind:to="'/tournament/' + round.tournamentParentId"
+          tag='div' class='round' v-for='round of motion.rounds' v-bind:key='round.id'>
+          <b> {{ round.tournamentYear }} </b>
+          {{ round.tournamentName }}
+          <i> {{ round.round }} </i>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -103,7 +113,23 @@ export default Vue.extend({
 
 .info-slide {
   padding: 0.5em;
+  margin-left: -0.5em;
+  margin-right: -0.5em;
   background-color: #eeeeee;
   margin-top: 0.5em;
+}
+
+.round {
+  padding: 0.5em;
+  margin-left: -0.5em;
+  margin-right: -0.5em;
+  background-color: #eeeeee;
+  margin-top: 0.5em;
+
+  cursor: pointer;
+}
+
+.round:hover {
+  background-color: #bbbbbb;
 }
 </style>
