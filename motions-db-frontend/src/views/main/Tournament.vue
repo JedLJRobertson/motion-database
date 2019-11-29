@@ -3,6 +3,13 @@
     <h2> Tournament: {{ tournamentName }} </h2>
     {{ tournamentDescription }} <p/>
     <router-link class="a" to="/"> Return to Search </router-link>
+    <div v-if="tournament && tournament.links && tournament.links.length > 0"
+      class='mb-3 mt-2'>
+      <h4> Useful Links </h4>
+      <div v-for='(link, linkid) of tournament.links' v-bind:key="linkid">
+        <a v-bind:href='link'> {{ tournament.linkDescriptions[linkid] }} </a> <br/>
+      </div>
+    </div>
     <h3> Tournaments, Rounds and Motions </h3>
     <div v-if='tournament'>
       <tournament-instance v-for='tournamentInstance of tournament.tournaments'

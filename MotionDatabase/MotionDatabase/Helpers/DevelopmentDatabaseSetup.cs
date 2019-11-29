@@ -124,6 +124,12 @@ namespace MotionDatabaseBackend.Helpers
                 Name = "Australs",
                 Description = "The Australasian Intervarsity Debating Championships (known colloquially as \"Australs\") is an annual debating tournament for teams from universities in the Australasian region. It is one of the world's largest debating tournaments, second only in size to the World Universities Debating Championship (WUDC), the European Universities Debating Championships (EUDC) and one of the largest annual student events in the world. Australs follows the Australia-Asian Debating format (three speakers plus replies), rather than the British Parliamentary Style used at WUDC. It is held every year in early-July under the auspices of the Australasian Intervarsity Debating Association (AIDA). The host university is selected a year before at a meeting of the Council of the Australasian Intervarsity Debating Association."
             };
+            var link = new ParentTournamentLink
+            {
+                Url = "google.com",
+                Description = "Test Link",
+            };
+            parentTournament.Links.Add(link);
             db.ParentTournaments.Add(parentTournament);
             var tournamentInst = new Tournament
             {
