@@ -8,6 +8,7 @@ namespace MotionDatabaseBackend.Dto
 {
     public class TournamentDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Year { get; set; }
         public string Location { get; set; }
@@ -15,6 +16,7 @@ namespace MotionDatabaseBackend.Dto
 
         public TournamentDto(Tournament tournament)
         {
+            Id = tournament.Id;
             Name = tournament.Name;
             Year = tournament.Year;
             Location = tournament.Location;
@@ -26,7 +28,7 @@ namespace MotionDatabaseBackend.Dto
 
                 if (round == null)
                 {
-                    round = new TournamentRoundDto(motion.Round);
+                    round = new TournamentRoundDto(motion.Round, Rounds.Count);
                     Rounds.Add(round);
                 }
 
