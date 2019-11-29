@@ -21,16 +21,22 @@ namespace MotionDatabaseBackend.Dto
 
             Links = new List<string>();
             LinkDescriptions = new List<string>();
-            foreach (var link in parentTournament.Links)
+            if (parentTournament.Links != null)
             {
-                Links.Add(link.Url);
-                LinkDescriptions.Add(link.Description);
+                foreach (var link in parentTournament.Links)
+                {
+                    Links.Add(link.Url);
+                    LinkDescriptions.Add(link.Description);
+                }
             }
 
             Tournaments = new List<TournamentDto>();
-            foreach (var tournament in parentTournament.Tournaments)
+            if (parentTournament.Tournaments != null)
             {
-                Tournaments.Add(new TournamentDto(tournament));
+                foreach (var tournament in parentTournament.Tournaments)
+                {
+                    Tournaments.Add(new TournamentDto(tournament));
+                }
             }
         }
     }

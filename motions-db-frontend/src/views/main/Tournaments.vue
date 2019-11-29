@@ -1,15 +1,20 @@
 <template>
   <div class="home mt-2">
-    <h2> All Categories </h2>
-      <router-link class="a" to="/"> Return to Search </router-link>
+    <h2> All Tournaments </h2>
+      <router-link class="a" to="/"> Return to Motion Search </router-link> <p/>
+      Descriptions:
+      <span v-if='showDescriptions' v-on:click='showDescriptions = false' class='link'> Hide </span>
+      <span v-else v-on:click='showDescriptions = true' class='link'> Show </span>
     <hr>
-    <router-link v-bind:to="'/category/' + category.id"
-      v-for='category of categories' v-bind:key='category.id'
+    <router-link v-bind:to="'/tournament/' + tournament.id"
+      v-for='tournament of tournaments' v-bind:key='tournament.id'
       class='list_item mb-3' tag="div">
       <h3 class='mb-0'>
-        {{ category.name }}
+        {{ tournament.name }}
       </h3>
-      {{ category.description }}
+      <div v-if='showDescriptions'>
+        {{ tournament.description }}
+      </div>
     </router-link>
   </div>
 </template>
@@ -20,19 +25,20 @@
 import Vue from 'vue';
 import ApiRequest from '@/util/apiRequest';
 
-import { API_MOTION_SEARCH, API_CATEGORY_QUERY } from '../../util/config';
+import { API_TOURNAMENT_QUERY } from '../../util/config';
 
 export default Vue.extend({
   name: 'home',
   data() {
     return {
-      categories: [],
+      tournaments: [],
+      showDescriptions: false,
     };
   },
   methods: {
     async load() {
-      const response = await ApiRequest.Get(API_CATEGORY_QUERY);
-      this.$data.categories = response;
+      const response = await ApiRequest.Get(API_TOURNAMENT_QUERY);
+      this.$data.tournaments = response;
     },
   },
   mounted() {
@@ -44,6 +50,9 @@ export default Vue.extend({
 <style scoped>
 .list_item {
   cursor: pointer;
+  padding: 0.5em;
+  margin-left: -0.5em;
+  margin-right: -0.5em;
 }
 
 .list_item:hover {

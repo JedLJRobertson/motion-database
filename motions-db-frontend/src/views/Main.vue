@@ -12,6 +12,9 @@
 
           <span v-if="this.$route.name === 'tags'" class='mr-3'>Tags</span>
           <router-link to='/tag/' class='mr-3' v-else>Tags</router-link>
+
+          <span v-if="this.$route.name === 'tournaments'" class='mr-3'>Tournaments</span>
+          <router-link to='/tournament/' class='mr-3' v-else>Tournaments</router-link>
         </div>
       </div>
     </div>

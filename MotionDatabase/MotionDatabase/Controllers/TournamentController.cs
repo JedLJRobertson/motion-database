@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace MotionDatabaseBackend.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<ParentTournamentDto> GetCategory(int id)
+        public ActionResult<ParentTournamentDto> GetTournament(int id)
         {
             var result = _context.ParentTournaments
                 .Where(pt => pt.Id == id)
@@ -42,6 +43,16 @@ namespace MotionDatabaseBackend.Controllers
             }
 
             return new ParentTournamentDto(result);
+        }
+
+        [HttpGet]
+        public ActionResult<List<ParentTournamentDto>> GetTournaments()
+        {
+            var result = new List<ParentTournamentDto>();
+
+            _context.ParentTournaments.ToList().ForEach(pt => result.Add(new ParentTournamentDto(pt)));
+
+            return result;
         }
     }
 }
