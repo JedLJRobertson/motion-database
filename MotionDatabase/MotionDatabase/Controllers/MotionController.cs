@@ -26,14 +26,15 @@ namespace MotionDatabaseBackend.Controllers
         {
             var query = _context.Motions
                 .Where(m => m.State == MotionState.Approved)
-                .Include(m => m.Category)
+                .Include(m => m.Categories)
+                    .ThenInclude(mca => mca.Category)
                 .Include(m => m.Tags)
                     .ThenInclude(t => t.MotionTag)
                 .AsEnumerable();
 
             if (request.Categories != null && request.Categories.Count > 0)
             {
-                query = query.Where(m => request.Categories.Contains(m.CategoryId));
+                query = query.Where(m => request.Categories.Any(cat => m.Categories.Any(mca => mca.CategoryId == cat)));
             }
 
             if (request.ExplicitMode == 0)
@@ -93,7 +94,8 @@ namespace MotionDatabaseBackend.Controllers
         {
             var result = _context.Motions
                 .Where(m => m.Id == id)
-                .Include(m => m.Category)
+                .Include(m => m.Categories)
+                    .ThenInclude(mca => mca.Category)
                 .Include(m => m.Tags)
                     .ThenInclude(mt => mt.MotionTag)
                 .Include(m => m.InfoSlides)

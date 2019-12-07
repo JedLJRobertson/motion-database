@@ -33,6 +33,17 @@ namespace MotionDatabaseBackend.Models
             modelBuilder.Entity<MotionTagAssignment>()
                 .HasOne<MotionTag>(mta => mta.MotionTag);
 
+            modelBuilder.Entity<MotionCategoryAssignment>().HasKey(mca => new { mca.CategoryId, mca.MotionId });
+            modelBuilder.Entity<MotionCategoryAssignment>()
+                .HasOne<Motion>(mca => mca.Motion)
+                .WithMany(m => m.Categories)
+                .HasForeignKey(mca => mca.MotionId);
+            modelBuilder.Entity<MotionCategoryAssignment>()
+                .HasOne<MotionCategory>(mca => mca.Category)
+                .WithMany()
+                .HasForeignKey(mca => mca.CategoryId);
+
+
             modelBuilder.Entity<MotionDebateFormat>().HasKey(mdf => new { mdf.DebateFormatId, mdf.MotionId });
             modelBuilder.Entity<MotionDebateFormat>()
                 .HasOne<Motion>(mdf => mdf.Motion)
