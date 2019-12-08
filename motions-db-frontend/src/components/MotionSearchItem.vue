@@ -99,8 +99,7 @@ li {
 .motion-difficulty-hard {
   color: #bf212f;
 }
-</style>
-<style>
+
 .category-link {
   color: #2E3C50;
 }
