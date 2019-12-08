@@ -64,42 +64,56 @@ namespace MotionDatabaseBackend.Helpers
             };
             db.TagSynonyms.Add(synonymTag);
             
-
             db.Motions.Add(new Motion
             {
                 MotionText = "This house would ban religious organisations from providing rehabilitation for alcohol, drug and mental health addiction.",
-                Category = cat1,
                 IsExplicit = false,
                 State = MotionState.Approved,
                 Difficulty = MotionDifficulty.Novice
             });
 
-            db.Motions.Add(new Motion
+            var motion2 = new Motion
             {
                 MotionText = "This house believes that governments should not contact ‘uncontacted’ peoples eg people living in the densely forested areas of South America, Central Africa and New Guinea.",
-                Category = cat1,
                 IsExplicit = false,
                 State = MotionState.Approved,
                 Difficulty = MotionDifficulty.Intermediate
+            };
+            motion2.Categories.Add(new MotionCategoryAssignment
+            {
+                Category = cat1
             });
+            db.Motions.Add(motion2);
 
-            db.Motions.Add(new Motion
+            var motion3 = new Motion
             {
                 MotionText = "Motion 3",
-                Category = cat2,
                 IsExplicit = true,
                 State = MotionState.Approved,
                 Difficulty = MotionDifficulty.Expert
+            };
+            motion3.Categories.Add(new MotionCategoryAssignment
+            {
+                Category = cat1
             });
+            motion3.Categories.Add(new MotionCategoryAssignment
+            {
+                Category = cat2
+            });
+            db.Motions.Add(motion3);
 
-            db.Motions.Add(new Motion
+            var motion4 = new Motion
             {
                 MotionText = "Motion Awaiting Approval",
-                Category = cat2,
                 IsExplicit = false,
                 State = MotionState.WaitingApproval,
                 Difficulty = MotionDifficulty.Novice
+            };
+            motion4.Categories.Add(new MotionCategoryAssignment
+            {
+                Category = cat2
             });
+            db.Motions.Add(motion4);
 
             var infoSlide = new MotionInfoSlide
             {

@@ -12,12 +12,13 @@
       <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'> Intermediate </span>
       <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
       <p/>
-      Motion Category:
-      <router-link v-bind:to="'/category/' + motion.categoryId"> {{ motion.category }}
-      </router-link>
-      <br/>
-      <span class='category-desc'> {{ motion.categoryDescription }} </span>
-      <p/>
+      Motion Categories:
+      <div v-for='category of motion.categories' v-bind:key='category.id'>
+        <router-link v-bind:to="'/category/' + category.id"> {{ category.name }}
+        </router-link>
+        -
+        <span class='category-desc'> {{ category.description }} </span>
+      </div> <p/>
       Motion Tags: <br/>
       <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
         class='motion-tag'> {{ tag.name }}</router-link>
@@ -61,9 +62,9 @@ export default Vue.extend({
   components: {
   },
   methods: {
-    async load() {
+    async load(nextRoute) {
       try {
-        const response = await ApiRequest.Get(API_MOTION_QUERY + this.$route.params.id);
+        const response = await ApiRequest.Get(API_MOTION_QUERY + nextRoute.params.id);
         this.$data.motion = response;
         this.$data.motionText = response.text;
       } catch (error) {
@@ -76,12 +77,13 @@ export default Vue.extend({
     },
   },
   beforeRouteUpdate(to, from, next) {
-    this.load();
+    this.load(to);
+    next();
   },
   computed: {
   },
   mounted() {
-    this.load();
+    this.load(this.$route);
   },
 });
 </script>

@@ -38,9 +38,9 @@ export default Vue.extend({
     MotionSearchView,
   },
   methods: {
-    async load() {
+    async load(forRoute) {
       try {
-        const response = await ApiRequest.Get(API_CATEGORY_QUERY + this.$route.params.id);
+        const response = await ApiRequest.Get(API_CATEGORY_QUERY + forRoute.params.id);
         this.$data.categoryName = response.name;
         document.title = response.name + TITLE_TERMINATOR;
         this.$data.categoryDescription = response.description;
@@ -55,7 +55,8 @@ export default Vue.extend({
     },
   },
   beforeRouteUpdate(to, from, next) {
-    this.load();
+    this.load(to);
+    next();
   },
   computed: {
     query() {
@@ -66,7 +67,7 @@ export default Vue.extend({
     },
   },
   mounted() {
-    this.load();
+    this.load(this.$route);
   },
 });
 </script>

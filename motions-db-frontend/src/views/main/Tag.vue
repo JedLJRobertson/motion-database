@@ -38,9 +38,9 @@ export default Vue.extend({
     MotionSearchView,
   },
   methods: {
-    async load() {
+    async load(nextRoute) {
       try {
-        const response = await ApiRequest.Get(API_TAG_QUERY_ID + this.$route.params.id);
+        const response = await ApiRequest.Get(API_TAG_QUERY_ID + nextRoute.params.id);
         this.$data.tagName = response.name;
         this.$data.tagSynonyms = response.synonyms;
         document.title = response.name + TITLE_TERMINATOR;
@@ -55,7 +55,8 @@ export default Vue.extend({
     },
   },
   beforeRouteUpdate(to, from, next) {
-    this.load();
+    this.load(to);
+    next();
   },
   computed: {
     query() {
@@ -66,7 +67,7 @@ export default Vue.extend({
     },
   },
   mounted() {
-    this.load();
+    this.load(this.$route);
   },
 });
 </script>
