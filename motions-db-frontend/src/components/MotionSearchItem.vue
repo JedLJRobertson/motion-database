@@ -14,9 +14,9 @@
     </span>
     <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
 
-    <span class='motion-tags'>
-      <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
-        class='motion-tag'>{{ tag.name }}</router-link>
+    <span v-for='(tag, num) of motion.tags' v-bind:key='tag.id' class='mr-1'>
+      <router-link v-bind:to="'/tag/' + tag.id" class='tag-link' tag='span'
+        >{{ tag.name }}{{ isLastTag(num) ? '' : ','}}</router-link>
     </span>
   </div>
 </template>
@@ -42,6 +42,9 @@ export default Vue.extend({
     isLastCategory(catNumInList) {
       return catNumInList === this.motion.categories.length - 1;
     },
+    isLastTag(tagNumInList) {
+      return tagNumInList === this.motion.tags.length - 1;
+    },
   },
   mounted() {
   },
@@ -61,11 +64,11 @@ export default Vue.extend({
   background-color: #eeeeee;
 }
 
-.motion-tag {
+.tag-link {
   color: #888888;
   padding-right: 0.5em;
 }
-.motion-tag:hover {
+.tag-link:hover {
   color: #555555;
   text-decoration: underline;
 }
