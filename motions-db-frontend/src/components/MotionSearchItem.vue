@@ -1,20 +1,24 @@
 <template>
-  <router-link tag="div" v-bind:to="'/motion/' + motion.id"
-      class="motion-item">
+  <div class="motion-item">
     <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
-    <h5> {{ motion.text }} </h5>
-    <router-link v-bind:to="'/category/' + motion.categoryId" class='category-link'>
-      {{ motion.category }}</router-link>
-      <span class='motion-difficulty-easy' v-if='motion.difficulty === 0'> Novice </span>
-      <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'>
-        Intermediate
-      </span>
-      <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
-      <span class='motion-tags'>
-        <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
-          class='motion-tag'>{{ tag.name }}</router-link>
-      </span>
-  </router-link>
+    <router-link tag="h5" v-bind:to="'/motion/' + motion.id"> {{ motion.text }} </router-link>
+
+    <span v-for='(cat, num) of motion.categories' v-bind:key="cat.id" class='mr-1'>
+      <router-link v-bind:to="'/category/' + cat.id" class='category-link' tag='a'
+      >{{ cat.name }}{{ isLastCategory(num) ? '' : ','}}</router-link>
+    </span>
+
+    <span class='motion-difficulty-easy' v-if='motion.difficulty === 0'> Novice </span>
+    <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'>
+      Intermediate
+    </span>
+    <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
+
+    <span class='motion-tags'>
+      <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
+        class='motion-tag'>{{ tag.name }}</router-link>
+    </span>
+  </div>
 </template>
 
 
@@ -27,9 +31,19 @@ export default Vue.extend({
   props: {
     motion: {},
   },
-  components: {
+  data() {
+    return {
+      categoryList: '',
+    };
+  },
+  watch: {
   },
   methods: {
+    isLastCategory(catNumInList) {
+      return catNumInList === this.motion.categories.length - 1;
+    },
+  },
+  mounted() {
   },
 });
 </script>
@@ -73,13 +87,6 @@ li {
   margin: 0 10px;
 }
 
-.category-link {
-  color: #2E3C50;
-}
-.category-link:hover {
-  text-decoration: underline;
-}
-
 .motion-difficulty-easy {
   color: #006f3c;
 }
@@ -88,5 +95,13 @@ li {
 }
 .motion-difficulty-hard {
   color: #bf212f;
+}
+</style>
+<style>
+.category-link {
+  color: #2E3C50;
+}
+.category-link:hover {
+  text-decoration: underline;
 }
 </style>
