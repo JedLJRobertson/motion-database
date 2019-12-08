@@ -1,7 +1,8 @@
 <template>
   <div class="motion-item">
     <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
-    <router-link tag="h5" v-bind:to="'/motion/' + motion.id"> {{ motion.text }} </router-link>
+    <router-link tag="h5" class='motion-text'
+    v-bind:to="'/motion/' + motion.id"> {{ motion.text }} </router-link>
 
     <span v-for='(cat, num) of motion.categories' v-bind:key="cat.id" class='mr-1'>
       <router-link v-bind:to="'/category/' + cat.id" class='category-link' tag='a'
@@ -54,14 +55,19 @@ export default Vue.extend({
 .motion-item {
   width: 100%;
 
-  cursor: pointer;
 
   padding: 6px;
   margin-left: -6px;
 }
-
 .motion-item:hover {
   background-color: #eeeeee;
+}
+
+.motion-text {
+  cursor: pointer;
+}
+.motion-text:hover {
+  text-decoration: underline;
 }
 
 .tag-link {
