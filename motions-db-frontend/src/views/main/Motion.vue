@@ -20,8 +20,10 @@
         <span class='category-desc'> {{ category.description }} </span>
       </div> <p/>
       Motion Tags: <br/>
-      <router-link v-for='tag of motion.tags' v-bind:key='tag.id' v-bind:to="'/tag/' + tag.id"
-        class='motion-tag'> {{ tag.name }}</router-link>
+      <span v-for='(tag, num) of motion.tags' v-bind:key='tag.id'>
+        <router-link v-bind:to="'/tag/' + tag.id" class='tag-link' tag='span'
+          >{{ tag.name }}{{ isLastTag(num) ? '' : ','}}</router-link>
+      </span>
       <p/>
       <div v-if="motion.infoSlides && motion.infoSlides.length > 0">
         Motion Infoslides: <br/>
@@ -75,6 +77,9 @@ export default Vue.extend({
         }
       }
     },
+    isLastTag(tagNumInList) {
+      return tagNumInList === this.motion.tags.length - 1;
+    },
   },
   beforeRouteUpdate(to, from, next) {
     this.load(to);
@@ -95,10 +100,13 @@ export default Vue.extend({
 .buffer {
   margin-right: 100%;
 }
-.motion-tag {
+
+.tag-link {
   color: #888888;
+  margin-right: 0.25em;
+  cursor: pointer;
 }
-.motion-tag:hover {
+.tag-link:hover {
   color: #555555;
   text-decoration: underline;
 }
