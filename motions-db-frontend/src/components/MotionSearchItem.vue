@@ -15,7 +15,7 @@
     </span>
     <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
 
-    <span v-for='(tag, num) of motion.tags' v-bind:key='tag.id' class='mr-1'>
+    <span v-for='(tag, num) of motion.tags' v-bind:key='tag.id'>
       <router-link v-bind:to="'/tag/' + tag.id" class='tag-link' tag='span'
         >{{ tag.name }}{{ isLastTag(num) ? '' : ','}}</router-link>
     </span>
@@ -72,7 +72,8 @@ export default Vue.extend({
 
 .tag-link {
   color: #888888;
-  padding-right: 0.5em;
+  margin-right: 0.25em;
+  cursor: pointer;
 }
 .tag-link:hover {
   color: #555555;
