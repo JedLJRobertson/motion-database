@@ -62,9 +62,9 @@ export default Vue.extend({
   components: {
   },
   methods: {
-    async load() {
+    async load(nextRoute) {
       try {
-        const response = await ApiRequest.Get(API_MOTION_QUERY + this.$route.params.id);
+        const response = await ApiRequest.Get(API_MOTION_QUERY + nextRoute.params.id);
         this.$data.motion = response;
         this.$data.motionText = response.text;
       } catch (error) {
@@ -77,12 +77,13 @@ export default Vue.extend({
     },
   },
   beforeRouteUpdate(to, from, next) {
-    this.load();
+    this.load(to);
+    next();
   },
   computed: {
   },
   mounted() {
-    this.load();
+    this.load(this.$route);
   },
 });
 </script>
