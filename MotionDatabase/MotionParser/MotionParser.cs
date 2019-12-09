@@ -1,6 +1,8 @@
-﻿using MotionDatabaseBackend.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MotionDatabaseBackend.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MotionParser
@@ -11,11 +13,20 @@ namespace MotionParser
         private List<MotionCategory> categories;
         private List<MotionTag> tags;
 
-        public MotionParser()
+        private MotionsContext context;
+
+        public MotionParser(MotionsContext context)
         {
-            motions = new List<Motion>();
-            categories = new List<MotionCategory>();
-            tags = new List<MotionTag>();
+            this.context = context;
+
+            motions = context.Motions
+                .Include(motion => motion.Categories)
+                    .ThenInclude(categoryAssignment => categoryAssignment.Category)
+                .Include(motion => motion.Tags)
+                    .ThenInclude(tagAssignment => tagAssignment.MotionTag)
+                .ToList();
+            categories = context.MotionCategories.ToList();
+            tags = context.MotionTags.ToList();
         }
 
         public Motion GetOrAddMotion(string motionText)
@@ -33,6 +44,7 @@ namespace MotionParser
                 };
 
                 motions.Add(match);
+                context.Motions.Add(match);
             }
 
             return match;
@@ -52,6 +64,7 @@ namespace MotionParser
                 };
 
                 categories.Add(match);
+                context.MotionCategories.Add(match);
             }
 
             return match;
@@ -71,18 +84,15 @@ namespace MotionParser
                 };
 
                 tags.Add(match);
+                context.MotionTags.Add(match);
             }
 
             return match;
         }
 
-        internal void Persist(MotionsContext db)
+        internal void Persist()
         {
-            db.MotionCategories.AddRange(categories);
-            db.MotionTags.AddRange(tags);
-            db.Motions.AddRange(motions);
-
-            db.SaveChanges();
+            context.SaveChanges();
         }
 
         public void PrintDetails()

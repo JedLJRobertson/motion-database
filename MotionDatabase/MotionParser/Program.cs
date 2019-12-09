@@ -14,13 +14,16 @@ namespace MotionParser
         static void Main(string[] args)
         {
             using (var reader = new StreamReader("../../../largesample.csv"))
+            using (var context = new MotionsContext(
+                    new DbContextOptionsBuilder<MotionsContext>()
+                    .UseMySql("server=localhost;port=3306;database=motionsdb;uid=motionsdb;password=")
+                    .Options))
             using (var csv = new CsvReader(reader))
             {
                 var records = csv.GetRecords<HelloMotionRow>();
 
-                var motionParser = new MotionParser();
+                var motionParser = new MotionParser(context);
 
-                var dupes = 0;
                 foreach (var record in records)
                 {
                     var motion = motionParser.GetOrAddMotion(record.Motion);
@@ -43,22 +46,18 @@ namespace MotionParser
                     {
                         var tag = motionParser.GetOrAddTag(record.Topic_Area_Specific_1);
 
-                        motion.Tags.Add(new MotionTagAssignment
+                        if (!motion.Tags.Any(assignment => assignment.MotionTag == tag))
                         {
-                            MotionTag = tag,
-                        });
+                            motion.Tags.Add(new MotionTagAssignment
+                            {
+                                MotionTag = tag,
+                            });
+                        }
                     }
                 }
 
                 motionParser.PrintDetails();
-
-                using (var context = new MotionsContext(
-                    new DbContextOptionsBuilder<MotionsContext>()
-                    .UseMySql("server=localhost;port=3306;database=motionsdb;uid=motionsdb;password=")
-                    .Options))
-                {
-                    motionParser.Persist(context);
-                }
+                motionParser.Persist();
             }
         }
     }
