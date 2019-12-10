@@ -6,6 +6,8 @@ See project README
 ```
 npm install
 ```
+Copy the `.env.production` file to a new `.env.local` file. You can change the URL for the API in the `.env.local` file to point at a local backend instance if necessary.
+
 
 ### Compiles and hot-reloads for development
 ```
