@@ -38,5 +38,6 @@ namespace MotionParser.HelloMotions
         }
 
         public string Topic_Area_Specific_1 { get; set; }
+        public string Date { get; set; }
     }
 }

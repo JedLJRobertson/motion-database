@@ -54,6 +54,31 @@ namespace MotionParser
                             });
                         }
                     }
+
+                    if (record.Infoslide != null && record.Infoslide.Length > 1)
+                    {
+                        if (!motion.InfoSlides.Any(infoslide => infoslide.InfoSlideText == record.Infoslide))
+                        {
+                            motion.InfoSlides.Add(new MotionInfoSlide
+                            {
+                                InfoSlideText = record.Infoslide,
+                            });
+                        }
+                    }
+
+                    if (record.Tournament != null && record.Tournament.Length > 0)
+                    {
+                        var tournament = motionParser.GetOrAddTournament(record.Tournament, record.Date, record.City);
+
+                        if (!tournament.DebatedMotions.Any(dm => dm.Motion == motion))
+                        {
+                            tournament.DebatedMotions.Add(new MotionDebateRound
+                            {
+                                Motion = motion,
+                                Round = record.Round
+                            });
+                        }
+                    }
                 }
 
                 motionParser.PrintDetails();
