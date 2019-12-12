@@ -14,7 +14,7 @@ namespace MotionDatabaseBackend.Models
 
         public int ParentTournamentId;
         public ParentTournament ParentTournament { get; set; }
-        public int FormatId { get; set; }
+        public int? FormatId { get; set; }
         public DebateFormat Format { get; set; }
 
         public IList<MotionDebateRound> DebatedMotions { get; } = new List<MotionDebateRound>();
