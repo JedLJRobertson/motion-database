@@ -1,25 +1,24 @@
 <template>
   <div>
-    <div class='w-100'>
-      <div class='per-page-bar mb-2'>
-        Results Per Page:
-        <div class='btn btn-secondary mr-2 ml-2' v-if='perPage === 10'> 10 </div>
-        <div class='btn btn-outline-secondary mr-2 ml-2 clickable' v-on:click='perPage = 10'
-          v-else> 10 </div>
-        <div class='btn btn-secondary mr-2' v-if='perPage === 25'> 25 </div>
-        <div class='btn btn-outline-secondary mr-2 clickable' v-on:click='perPage = 25'
-          v-else> 25 </div>
-        <div class='btn btn-secondary mr-2' v-if='perPage === 50'> 50 </div>
-        <div class='btn btn-outline-secondary mr-2 clickable' v-on:click='perPage = 50'
-          v-else> 50 </div>
-      </div>
-      <page-picker
-        v-bind:currentPage='currentPage'
-        v-bind:lastPage='lastPage'
-        v-on:change-page='startingAt = ($event - 1) * perPage' />
-    </div>
-    <p/>
     <div v-if='motions && motions.length > 0'>
+      <div class='w-100'>
+        <div class='per-page-bar mb-2'>
+          Results Per Page:
+          <div class='btn btn-secondary mr-2 ml-2' v-if='perPage === 10'> 10 </div>
+          <div class='btn btn-outline-secondary mr-2 ml-2 clickable' v-on:click='perPage = 10'
+            v-else> 10 </div>
+          <div class='btn btn-secondary mr-2' v-if='perPage === 25'> 25 </div>
+          <div class='btn btn-outline-secondary mr-2 clickable' v-on:click='perPage = 25'
+            v-else> 25 </div>
+          <div class='btn btn-secondary mr-2' v-if='perPage === 50'> 50 </div>
+          <div class='btn btn-outline-secondary mr-2 clickable' v-on:click='perPage = 50'
+            v-else> 50 </div>
+        </div>
+        <page-picker
+          v-bind:currentPage='currentPage'
+          v-bind:lastPage='lastPage'
+          v-on:change-page='startingAt = ($event - 1) * perPage' />
+      </div>
       <motion-search-item v-for='motion of motions'
         v-bind:key='motion.id' v-bind:motion='motion' />
     </div>
