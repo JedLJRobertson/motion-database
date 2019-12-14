@@ -29,3 +29,8 @@
 .link:hover {
     text-decoration: underline;
 }
+
+
+.clickable {
+    cursor: pointer;
+}
