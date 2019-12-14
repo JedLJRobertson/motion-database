@@ -80,10 +80,16 @@ namespace MotionDatabaseBackend.Controllers
                 }
             }
 
+            var totalCount = query.Count();
+
+            query = query
+                .Skip(request.StartFrom != null ? (int)request.StartFrom : 0)
+                .Take(request.NumberResults != null ? (int) request.NumberResults : 20);
 
             var result = new MotionSearchResultDto(query.ToList())
             {
-                Query = request
+                Query = request,
+                CountResults = totalCount,
             };
             return result;
 

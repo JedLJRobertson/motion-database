@@ -10,6 +10,7 @@ namespace MotionDatabaseBackend.Dto
     {
         public MotionSearchDto Query { get; set; }
         public List<MotionSearchItemDto> Results { get; set; }
+        public int CountResults { get; set; }
 
         public MotionSearchResultDto(List<Motion> motions)
         {
