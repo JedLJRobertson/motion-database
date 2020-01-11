@@ -9,17 +9,22 @@
       <div class='badge badge-secondary buffer mb-3' v-if='motion.suitability == 2'>
         Uncategorised Maturity </div>
 
+      <div v-if='motion.sourceCredit'>
+        Motion Sourced Courtesy of: {{ motion.sourceCredit }} </div>
+      Language: {{ getLanguage() }}
+      <p/>
+
       Motion Difficulty:
-    <span class='motion-difficulty-uncat' v-if='motion.difficulty === 0'>
-      Uncategorised Difficulty </span>
-    <span class='motion-difficulty-easy' v-if='motion.difficulty === 1'>
-      Novice Schools
-    </span>
-    <span class='motion-difficulty-easy' v-if='motion.difficulty === 2'>
-      Novice University
-    </span>
-    <span class='motion-difficulty-medium' v-if='motion.difficulty === 3'> Intermediate </span>
-    <span class='motion-difficulty-hard' v-if='motion.difficulty === 4'> Advanced </span>
+      <span class='motion-difficulty-uncat' v-if='motion.difficulty === 0'>
+        Uncategorised Difficulty </span>
+      <span class='motion-difficulty-easy' v-if='motion.difficulty === 1'>
+        Novice Schools
+      </span>
+      <span class='motion-difficulty-easy' v-if='motion.difficulty === 2'>
+        Novice University
+      </span>
+      <span class='motion-difficulty-medium' v-if='motion.difficulty === 3'> Intermediate </span>
+      <span class='motion-difficulty-hard' v-if='motion.difficulty === 4'> Advanced </span>
       <p/>
       Motion Categories:
       <div v-for='category of motion.categories' v-bind:key='category.id'>
@@ -88,6 +93,14 @@ export default Vue.extend({
     },
     isLastTag(tagNumInList) {
       return tagNumInList === this.motion.tags.length - 1;
+    },
+    getLanguage() {
+      switch (this.$data.motion.language) {
+        case 'en':
+          return 'English';
+        default:
+          return this.$data.motion.language;
+      }
     },
   },
   beforeRouteUpdate(to, from, next) {

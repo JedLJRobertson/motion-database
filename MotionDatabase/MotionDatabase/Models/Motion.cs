@@ -14,6 +14,7 @@ namespace MotionDatabaseBackend.Models
         public MotionState State { get; set; }
         public MotionDifficulty Difficulty { get; set; }
         public string SourceCredit { get; set; }
+        public string LanguageCode { get; set; }
 
         public IList<MotionCategoryAssignment> Categories { get; set; } = new List<MotionCategoryAssignment>(); 
 

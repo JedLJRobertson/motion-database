@@ -55,7 +55,8 @@ namespace MotionParser
                     State = MotionState.Approved,
                     SourceCredit = "HelloMotions.com",
                     Difficulty = MotionDifficulty.Uncategorised,
-                    Suitability = MotionSuitability.Uncategorised
+                    Suitability = MotionSuitability.Uncategorised,
+                    LanguageCode = "en",
                 };
 
                 motions.Add(match);
