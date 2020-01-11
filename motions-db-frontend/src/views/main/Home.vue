@@ -22,19 +22,26 @@
         :add-only-from-autocomplete="true"
         @tags-changed="updateTagSearch"
       />
-      <div class="form-check">
+      <div class="form-check mt-1">
         <input type='checkbox' class='form-check-input' id='tags-exclusive'
           v-model='tagsExclusive' />
         <label class='form-check-label' for='tags-exclusive'>
           Search exclusively (all tags must be present on motions, otherwise only 1 tag needed).
         </label>
       </div>
-      <div class="form-group mt-2">
-        <select class="form-control" v-model='explicit'>
-          <option default value="0">Age Appropriate</option>
-          <option value="1">Include Explicit Motions</option>
+      <div class="form-group mt-2 mb-1">
+        <select class="form-control" v-model='suitabilityMode'>
+          <option default value="1">Age Appropriate</option>
+          <option value="0">Include All Motions</option>
           <option value="2">Explicit Motions Only</option>
         </select>
+      </div>
+      <div class="form-check mb-1">
+        <input type='checkbox' class='form-check-input' id='suitability-uncategorised'
+          v-model='uncategorisedSuitability' />
+        <label class='form-check-label' for='suitability-uncategorised'>
+          Include motions with uncategorised suitability (may include explicit motions)
+        </label>
       </div>
 
       <div class='motion-difficulty-option float-left'>
@@ -106,7 +113,8 @@ export default Vue.extend({
       lastTagQuery: undefined,
       tagsExclusive: false,
       query: {},
-      explicit: 0,
+      suitabilityMode: 0,
+      uncategorisedSuitability: false,
       difficultyNoviceSchools: true,
       difficultyNoviceUni: true,
       difficultyIntermediate: true,
@@ -153,7 +161,8 @@ export default Vue.extend({
         categories: this.$data.selectedCategories.map(cat => cat.id),
         tags: this.$data.selectedTags.map(tag => tag.id),
         allTags: this.$data.tagsExclusive,
-        explicitMode: parseInt(this.$data.explicit, 10),
+        suitabilityMode: parseInt(this.$data.suitabilityMode, 10),
+        suitabilityIncludeUncategorised: this.$data.uncategorisedSuitability,
         difficulties,
       };
     },
