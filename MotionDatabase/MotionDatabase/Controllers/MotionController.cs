@@ -22,7 +22,7 @@ namespace MotionDatabaseBackend.Controllers
 
         private IEnumerable<Motion> QueryByAgeSuitability(IEnumerable<Motion> query, int suitabilityMode, bool includeUncategorised)
         {
-            if (suitabilityMode == 0)
+            if (suitabilityMode == 1)
             {
                 query = query.Where(m => m.Suitability == MotionSuitability.AllAges ||
                     (includeUncategorised && m.Suitability == MotionSuitability.Uncategorised));
