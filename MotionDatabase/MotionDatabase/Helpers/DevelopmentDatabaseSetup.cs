@@ -67,15 +67,15 @@ namespace MotionDatabaseBackend.Helpers
             db.Motions.Add(new Motion
             {
                 MotionText = "This house would ban religious organisations from providing rehabilitation for alcohol, drug and mental health addiction.",
-                IsExplicit = false,
+                Suitability = MotionSuitability.AllAges,
                 State = MotionState.Approved,
-                Difficulty = MotionDifficulty.Novice
+                Difficulty = MotionDifficulty.NoviceSchools
             });
 
             var motion2 = new Motion
             {
                 MotionText = "This house believes that governments should not contact ‘uncontacted’ peoples eg people living in the densely forested areas of South America, Central Africa and New Guinea.",
-                IsExplicit = false,
+                Suitability = MotionSuitability.AllAges,
                 State = MotionState.Approved,
                 Difficulty = MotionDifficulty.Intermediate
             };
@@ -88,9 +88,9 @@ namespace MotionDatabaseBackend.Helpers
             var motion3 = new Motion
             {
                 MotionText = "Motion 3",
-                IsExplicit = true,
+                Suitability = MotionSuitability.Explicit,
                 State = MotionState.Approved,
-                Difficulty = MotionDifficulty.Expert
+                Difficulty = MotionDifficulty.Advanced
             };
             motion3.Categories.Add(new MotionCategoryAssignment
             {
@@ -105,9 +105,9 @@ namespace MotionDatabaseBackend.Helpers
             var motion4 = new Motion
             {
                 MotionText = "Motion Awaiting Approval",
-                IsExplicit = false,
-                State = MotionState.WaitingApproval,
-                Difficulty = MotionDifficulty.Novice
+                Suitability = MotionSuitability.Uncategorised,
+                State = MotionState.Approved,
+                Difficulty = MotionDifficulty.NoviceUni
             };
             motion4.Categories.Add(new MotionCategoryAssignment
             {

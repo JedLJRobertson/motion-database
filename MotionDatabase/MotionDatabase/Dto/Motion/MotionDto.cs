@@ -8,7 +8,7 @@ namespace MotionDatabaseBackend.Dto
         public int Id { get; set; }
         public string Text { get; set; }
         public IList<CategoryDto> Categories {get;set;}
-        public bool IsExplicit { get; set; }
+        public MotionSuitability Suitability { get; set; }
         public int Difficulty { get; set; }
         public IList<TagDto> Tags { get; set; }
         public List<InfoSlideDto> InfoSlides { get; set; }
@@ -18,7 +18,7 @@ namespace MotionDatabaseBackend.Dto
         {
             Id = motion.Id;
             Text = motion.MotionText;
-            IsExplicit = motion.IsExplicit;
+            Suitability = motion.Suitability;
             Difficulty = (int) motion.Difficulty;
 
             Categories = new List<CategoryDto>();

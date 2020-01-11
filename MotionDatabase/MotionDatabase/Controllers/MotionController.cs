@@ -20,6 +20,31 @@ namespace MotionDatabaseBackend.Controllers
             _context = context;
         }
 
+        private IEnumerable<Motion> QueryByAgeSuitability(IEnumerable<Motion> query, int suitabilityMode, bool includeUncategorised)
+        {
+            if (suitabilityMode == 0)
+            {
+                query = query.Where(m => m.Suitability == MotionSuitability.AllAges ||
+                    (includeUncategorised && m.Suitability == MotionSuitability.Uncategorised));
+            }
+            else if (suitabilityMode == 2)
+            {
+                query = query.Where(m => m.Suitability == MotionSuitability.Explicit ||
+                    (includeUncategorised && m.Suitability == MotionSuitability.Uncategorised));
+            }
+            return query;
+        }
+
+        private IEnumerable<Motion> QueryByDifficulty(IEnumerable<Motion> query, List<MotionDifficulty> difficulties)
+        {
+            if (difficulties != null && difficulties.Count > 0)
+            {
+                query = query.Where(m => difficulties.Contains(m.Difficulty));
+            }
+
+            return query;
+        }
+            
         [HttpPost]
         [Route("search")]
         public ActionResult<MotionSearchResultDto> Search(MotionSearchDto request)
@@ -37,36 +62,9 @@ namespace MotionDatabaseBackend.Controllers
                 query = query.Where(m => request.Categories.Any(cat => m.Categories.Any(mca => mca.CategoryId == cat)));
             }
 
-            if (request.ExplicitMode == 0)
-            {
-                query = query.Where(m => m.IsExplicit == false);
-            }
-            else if (request.ExplicitMode == 2)
-            {
-                query = query.Where(m => m.IsExplicit == true);
-            }
+            query = QueryByAgeSuitability(query, request.SuitabilityMode, request.SuitabilityIncludeUncategorised);
 
-            if (request.Difficulties != null && request.Difficulties.Count > 0)
-            {
-                var difficulties = new List<MotionDifficulty>();
-                request.Difficulties.ForEach((difficultyN) =>
-                {
-                    switch (difficultyN)
-                    {
-                        case 0:
-                            difficulties.Add(MotionDifficulty.Novice);
-                            break;
-                        case 1:
-                            difficulties.Add(MotionDifficulty.Intermediate);
-                            break;
-                        case 2:
-                            difficulties.Add(MotionDifficulty.Expert);
-                            break;
-                    }
-                });
-
-                query = query.Where(m => difficulties.Contains(m.Difficulty));
-            }
+            query = QueryByDifficulty(query, request.Difficulties);
 
             if (request.Tags != null && request.Tags.Count > 0)
             {
