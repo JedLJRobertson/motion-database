@@ -5,12 +5,21 @@
     <router-link class="a" to="/"> Return to Search </router-link>
     <hr>
     <div v-if='motion'>
-      <div class='badge badge-danger buffer mb-3' v-if='motion.isExplicit'> Explicit </div>
+      <div class='badge badge-danger buffer mb-3' v-if='motion.suitability == 1'> Mature </div>
+      <div class='badge badge-secondary buffer mb-3' v-if='motion.suitability == 2'>
+        Uncategorised Maturity </div>
 
       Motion Difficulty:
-      <span class='motion-difficulty-easy' v-if='motion.difficulty === 0'> Novice </span>
-      <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'> Intermediate </span>
-      <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
+    <span class='motion-difficulty-uncat' v-if='motion.difficulty === 0'>
+      Uncategorised Difficulty </span>
+    <span class='motion-difficulty-easy' v-if='motion.difficulty === 1'>
+      Novice Schools
+    </span>
+    <span class='motion-difficulty-easy' v-if='motion.difficulty === 2'>
+      Novice University
+    </span>
+    <span class='motion-difficulty-medium' v-if='motion.difficulty === 3'> Intermediate </span>
+    <span class='motion-difficulty-hard' v-if='motion.difficulty === 4'> Advanced </span>
       <p/>
       Motion Categories:
       <div v-for='category of motion.categories' v-bind:key='category.id'>
@@ -111,6 +120,9 @@ export default Vue.extend({
   text-decoration: underline;
 }
 
+.motion-difficulty-uncat {
+  color: #777777;
+}
 .motion-difficulty-easy {
   color: #006f3c;
 }
