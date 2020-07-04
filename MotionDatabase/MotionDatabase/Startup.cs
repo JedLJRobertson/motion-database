@@ -81,7 +81,7 @@ namespace MotionDatabase
 
                 using var serviceScope = app.ApplicationServices.CreateScope();
 
-                //var db = serviceScope.ServiceProvider.GetService<MotionsContext>();
+                var db = serviceScope.ServiceProvider.GetService<MotionsContext>();
                 //db.Database.EnsureDeleted();
                 //db.Database.EnsureCreated();
                 //DevelopmentDatabaseSetup.SetupDevelopmentDatabase(db);

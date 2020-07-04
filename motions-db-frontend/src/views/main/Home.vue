@@ -22,43 +22,64 @@
         :add-only-from-autocomplete="true"
         @tags-changed="updateTagSearch"
       />
-      <div class="form-check">
+      <div class="form-check mt-1">
         <input type='checkbox' class='form-check-input' id='tags-exclusive'
           v-model='tagsExclusive' />
         <label class='form-check-label' for='tags-exclusive'>
           Search exclusively (all tags must be present on motions, otherwise only 1 tag needed).
         </label>
       </div>
-      <div class="form-group mt-2">
-        <select class="form-control" v-model='explicit'>
-          <option default value="0">Age Appropriate</option>
-          <option value="1">Include Explicit Motions</option>
+      <div class="form-group mt-2 mb-1">
+        <select class="form-control" v-model='suitabilityMode'>
+          <option default value="1">Age Appropriate</option>
+          <option value="0">Include All Motions</option>
           <option value="2">Explicit Motions Only</option>
         </select>
+      </div>
+      <div class="form-check mb-1">
+        <input type='checkbox' class='form-check-input' id='suitability-uncategorised'
+          v-model='uncategorisedSuitability' />
+        <label class='form-check-label' for='suitability-uncategorised'>
+          Include motions with uncategorised suitability (may include explicit motions)
+        </label>
       </div>
 
       <div class='motion-difficulty-option float-left'>
         Motion Difficulty:
       </div>
       <div class="form-check motion-difficulty-option float-left">
-        <input type='checkbox' class='form-check-input' id='difficulty-easy'
-          v-model='difficultyEasy' />
-        <label class='form-check-label' for='difficulty-easy'>
-          Novice
+        <input type='checkbox' class='form-check-input' id='difficulty-novschool'
+          v-model='difficultyNoviceSchools' />
+        <label class='form-check-label' for='difficulty-novschool'>
+          Novice Schools
+        </label>
+      </div>
+      <div class="form-check motion-difficulty-option float-left">
+        <input type='checkbox' class='form-check-input' id='difficulty-novuni'
+          v-model='difficultyNoviceUni' />
+        <label class='form-check-label' for='difficulty-novuni'>
+          Novice University
         </label>
       </div>
       <div class="form-check motion-difficulty-option float-left">
         <input type='checkbox' class='form-check-input' id='difficulty-medium'
-          v-model='difficultyMedium' />
+          v-model='difficultyIntermediate' />
         <label class='form-check-label' for='difficulty-medium'>
           Intermediate
         </label>
       </div>
       <div class="form-check motion-difficulty-option float-left">
         <input type='checkbox' class='form-check-input' id='difficulty-hard'
-          v-model='difficultyHard' />
+          v-model='difficultyAdvanced' />
         <label class='form-check-label' for='difficulty-hard'>
           Expert
+        </label>
+      </div>
+      <div class="form-check motion-difficulty-option float-left">
+        <input type='checkbox' class='form-check-input' id='difficulty-uncat'
+          v-model='difficultyUncategorised' />
+        <label class='form-check-label' for='difficulty-uncat'>
+          Uncategorised Difficulty
         </label>
       </div>
 
@@ -92,10 +113,13 @@ export default Vue.extend({
       lastTagQuery: undefined,
       tagsExclusive: false,
       query: {},
-      explicit: 0,
-      difficultyEasy: true,
-      difficultyMedium: true,
-      difficultyHard: true,
+      suitabilityMode: 0,
+      uncategorisedSuitability: false,
+      difficultyNoviceSchools: true,
+      difficultyNoviceUni: true,
+      difficultyIntermediate: true,
+      difficultyAdvanced: true,
+      difficultyUncategorised: true,
     };
   },
   components: {
@@ -127,15 +151,18 @@ export default Vue.extend({
     },
     async runSearch() {
       const difficulties = [];
-      if (this.$data.difficultyEasy) difficulties.push(0);
-      if (this.$data.difficultyMedium) difficulties.push(1);
-      if (this.$data.difficultyHard) difficulties.push(2);
+      if (this.$data.difficultyUncategorised) difficulties.push(0);
+      if (this.$data.difficultyNoviceSchools) difficulties.push(1);
+      if (this.$data.difficultyNoviceUni) difficulties.push(2);
+      if (this.$data.difficultyIntermediate) difficulties.push(3);
+      if (this.$data.difficultyAdvanced) difficulties.push(4);
 
       this.$data.query = {
         categories: this.$data.selectedCategories.map(cat => cat.id),
         tags: this.$data.selectedTags.map(tag => tag.id),
         allTags: this.$data.tagsExclusive,
-        explicitMode: parseInt(this.$data.explicit, 10),
+        suitabilityMode: parseInt(this.$data.suitabilityMode, 10),
+        suitabilityIncludeUncategorised: this.$data.uncategorisedSuitability,
         difficulties,
       };
     },
@@ -168,7 +195,7 @@ export default Vue.extend({
 }
 @media (min-width: 768px) {
   .motion-difficulty-option {
-    width: 25%;
+    width: 50%;
   }
 }
 

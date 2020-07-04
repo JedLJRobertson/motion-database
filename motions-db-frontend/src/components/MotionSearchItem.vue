@@ -1,6 +1,8 @@
 <template>
   <div class="motion-item">
-    <div v-if='motion.isExplicit' class='btn btn-danger float-right mt-1 mr-2'> Explicit </div>
+    <div v-if='motion.suitability == 1' class='btn btn-danger float-right mt-1 mr-2'> Mature </div>
+    <div v-if='motion.suitability == 2' class='badge badge-secondary float-right mt-1 mr-2'>
+      Uncategorised Maturity </div>
     <router-link tag="h5" class='motion-text'
     v-bind:to="'/motion/' + motion.id"> {{ motion.text }} </router-link>
 
@@ -9,11 +11,16 @@
       >{{ cat.name }}{{ isLastCategory(num) ? '' : ','}}</router-link>
     </span>
 
-    <span class='motion-difficulty-easy' v-if='motion.difficulty === 0'> Novice </span>
-    <span class='motion-difficulty-medium' v-if='motion.difficulty === 1'>
-      Intermediate
+    <span class='motion-difficulty-uncat' v-if='motion.difficulty === 0'>
+      Uncategorised Difficulty </span>
+    <span class='motion-difficulty-easy' v-if='motion.difficulty === 1'>
+      Novice Schools
     </span>
-    <span class='motion-difficulty-hard' v-if='motion.difficulty === 2'> Expert </span>
+    <span class='motion-difficulty-easy' v-if='motion.difficulty === 2'>
+      Novice University
+    </span>
+    <span class='motion-difficulty-medium' v-if='motion.difficulty === 3'> Intermediate </span>
+    <span class='motion-difficulty-hard' v-if='motion.difficulty === 4'> Advanced </span>
 
     <span v-for='(tag, num) of motion.tags' v-bind:key='tag.id'>
       <router-link v-bind:to="'/tag/' + tag.id" class='tag-link' tag='span'
@@ -97,6 +104,9 @@ li {
   margin: 0 10px;
 }
 
+.motion-difficulty-uncat {
+  color: #777777;
+}
 .motion-difficulty-easy {
   color: #006f3c;
 }
